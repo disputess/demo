@@ -126,14 +126,14 @@
             <pattern>%date [%thread] %-5level %logger [%L] - %msg%n</pattern>
         </encoder>
     </appender>
-    <!--<appender name="CatAppender" class="com.baojia.bike.config.CatLogbackAppender"></appender>-->
-    <logger name="com.baojia.bike.operation.dao" level="DEBUG">
+    <!--<appender name="CatAppender" class="com.example.config.CatLogbackAppender"></appender>-->
+    <logger name="com.example.dao" level="DEBUG">
         <appender-ref ref="APP_SQL"/>
     </logger>
     <logger name="com.alibaba.druid.filter.stat.StatFilter" level="DEBUG"  additivity="false">
         <appender-ref ref="SLOW_SQL"/>
     </logger>
-    <logger name="com.baojia.bike.operation.service.datasources.DynamicDataSourceConfig" level="trace"  additivity="true">
+    <logger name="com.example.service.datasources.DynamicDataSourceConfig" level="trace"  additivity="true">
         <appender-ref ref="DB_CONN"/>
     </logger>
     <!--调试模式下可以改为debug-->
