@@ -2,3 +2,9 @@ server:
   port: 8087
 logging:
   config: classpath:logback-dev.xml
+spring:
+  datasource:
+    url: jdbc:mysql://39.107.253.206:3306/dev?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
+    username: root
+    password: rPCyKmOOQ1jpEG3h
+    driver-class-name: com.mysql.jdbc.Driver
