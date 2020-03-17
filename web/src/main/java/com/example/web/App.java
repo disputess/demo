@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class App {
 
 	public static void main(String[] args) {
+		System.setProperty("druid.logType","slf4j");
 		SpringApplication.run(App.class, args);
 		log.info("============================App启动完成============================");
 	}
