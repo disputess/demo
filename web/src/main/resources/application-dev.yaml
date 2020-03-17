@@ -13,6 +13,18 @@ spring:
          url: jdbc:mysql://39.107.253.206:3306/test2?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
          username: root
          password: rPCyKmOOQ1jpEG3h
+       initial-size: 10
+       max-active: 100
+       min-idle: 10
+       max-wait: 60000
+       pool-prepared-statements: true
+       max-pool-prepared-statement-per-connection-size: 20
+       time-between-eviction-runs-millis: 60000
+       min-evictable-idle-time-millis: 300000
+       validation-query: SELECT 1 FROM DUAL
+       test-while-idle: true
+       test-on-borrow: false
+       test-on-return: false
        stat-view-servlet:
          enabled: true
          url-pattern: /druid/*
