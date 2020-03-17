@@ -133,7 +133,7 @@
     <logger name="com.alibaba.druid.filter.stat.StatFilter" level="DEBUG"  additivity="false">
         <appender-ref ref="SLOW_SQL"/>
     </logger>
-    <logger name="com.example.service.datasources.DynamicDataSourceConfig" level="trace"  additivity="true">
+    <logger name="com.example.web.datasources.DynamicDataSourceConfig" level="trace" additivity="true">
         <appender-ref ref="DB_CONN"/>
     </logger>
     <!--调试模式下可以改为debug-->

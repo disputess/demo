@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service(value = "testService")
+@Service("testService")
 public interface TestService {
 
     List<TestEntity> getAll();

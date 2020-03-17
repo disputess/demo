@@ -1,4 +1,4 @@
-package com.example.service.datasources;
+package com.example.web.datasources;
 
 /**
  * @ClassName : GetBean

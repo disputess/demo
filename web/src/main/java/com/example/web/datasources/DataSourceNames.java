@@ -1,4 +1,4 @@
-package com.example.service.datasources;
+package com.example.web.datasources;
 
 /**
  * 增加多数据源，在此配置
