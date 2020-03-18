@@ -6,6 +6,8 @@
     <select id="getAll" resultType="com.example.domain.entity.TestEntity">
         SELECT * FROM test
     </select>
-
+    <select id="changeDatasource" resultType="com.example.domain.entity.UsersEntity">
+        SELECT * FROM users
+    </select>
 
 </mapper>
