@@ -1,4 +1,4 @@
-package com.example.web.datasources;
+package com.example.service.datasources;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

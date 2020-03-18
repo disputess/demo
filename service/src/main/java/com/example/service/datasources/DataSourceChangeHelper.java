@@ -1,4 +1,4 @@
-package com.example.web.datasources;
+package com.example.service.datasources;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

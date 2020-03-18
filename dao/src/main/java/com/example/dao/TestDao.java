@@ -1,6 +1,6 @@
-package com.example.dao.test;
+package com.example.dao;
 
-import com.example.domain.test.entity.TestEntity;
+import com.example.domain.entity.TestEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

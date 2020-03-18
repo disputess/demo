@@ -1,6 +1,7 @@
 package com.example.service.test;
 
-import com.example.domain.test.entity.TestEntity;
+import com.example.domain.entity.TestEntity;
+import com.example.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 @Slf4j

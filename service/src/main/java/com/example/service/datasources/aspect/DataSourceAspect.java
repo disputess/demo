@@ -1,7 +1,8 @@
-package com.example.web.datasources.aspect;
+package com.example.service.datasources.aspect;
 
-import java.lang.reflect.Method;
-
+import com.example.service.datasources.DataSourceNames;
+import com.example.service.datasources.DynamicDataSource;
+import com.example.service.datasources.annotation.DataSource;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,9 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
-import com.example.web.datasources.DataSourceNames;
-import com.example.web.datasources.DynamicDataSource;
-import com.example.web.datasources.annotation.DataSource;
+
+import java.lang.reflect.Method;
 
 /**
  * 多数据源，切面处理类
@@ -26,7 +26,7 @@ import com.example.web.datasources.annotation.DataSource;
 public class DataSourceAspect implements Ordered {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("@annotation(com.example.web.datasources.annotation.DataSource)")
+    @Pointcut("@annotation(com.example.service.datasources.annotation.DataSource)")
     public void dataSourcePointCut() {
 
     }

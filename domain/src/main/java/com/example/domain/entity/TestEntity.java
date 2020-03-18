@@ -1,4 +1,4 @@
-package com.example.domain.test.entity;
+package com.example.domain.entity;
 
 import java.io.Serializable;
 

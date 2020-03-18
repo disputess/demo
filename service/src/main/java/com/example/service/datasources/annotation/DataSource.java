@@ -1,4 +1,4 @@
-package com.example.web.datasources.annotation;
+package com.example.service.datasources.annotation;
 
 import java.lang.annotation.*;
 
