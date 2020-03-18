@@ -36,5 +36,11 @@ spring:
            wall:
                config:
                  multi-statement-allow: true
+  redis:
+    host: 39.107.253.206
+    port: 6379
+    password: nmE9ZHEX7vqlRBBD
+#    database: 2
+    timeout: 30s
 logging:
   config: classpath:logback-dev.xml
