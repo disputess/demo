@@ -3,6 +3,13 @@ package com.example.service.datasources;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.google.common.collect.ImmutableList;
+import io.shardingsphere.api.config.ShardingRuleConfiguration;
+import io.shardingsphere.api.config.TableRuleConfiguration;
+import io.shardingsphere.api.config.strategy.StandardShardingStrategyConfiguration;
+import io.shardingsphere.core.keygen.DefaultKeyGenerator;
+import io.shardingsphere.core.rule.ShardingRule;
+import io.shardingsphere.core.rule.TableRule;
+import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -17,6 +24,7 @@ import javax.sql.DataSource;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -32,6 +40,7 @@ import java.util.concurrent.TimeUnit;
 public class DynamicDataSourceConfig implements ApplicationContextAware {
     
     private static final Logger logger = LoggerFactory.getLogger(DynamicDataSourceConfig.class);
+    private final static String order = "share_op_stat";
     
     private ApplicationContext applicationContext;
 
@@ -54,10 +63,11 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
     }
     @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource) {
+    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource, DataSource shardingDataSource) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
         targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
+        targetDataSources.put(DataSourceNames.SHARDING, shardingDataSource);
         List<DataSource> dsList= ImmutableList.of(firstDataSource,secondDataSource);
         scheduledExecutorService.scheduleAtFixedRate(()->{
             for(DataSource ds:dsList){
@@ -75,27 +85,25 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         return new DynamicDataSource(firstDataSource, targetDataSources);
     }
     
-    /*@Bean("shardingDataSource")
+  @Bean("shardingDataSource")
     public DataSource shardingDataSource() throws SQLException {
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
         TableRuleConfiguration tableRule = new TableRuleConfiguration();
-        tableRule.setLogicTable("bike_op_stat");
-        tableRule.setActualDataNodes("ds.bike_op_stat_$->{0..9}");
+        tableRule.setLogicTable("share_op_stat");
+        tableRule.setActualDataNodes("ds.share_op_stat_$->{0..1}");
         tableRule.setKeyGeneratorColumnName("id");
         long workId = getWorkIdByHostIp();
         logger.error("KeyGenerator workId:{}", workId);
         DefaultKeyGenerator.setWorkerId(workId);
-        
-        tableRule.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("bike_id", new BikeOpStatTableShardingAlgorithm(), null));
+        tableRule.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("share_id", new BikeOpStatTableShardingAlgorithm(), null));
         shardingRuleConfig.getTableRuleConfigs().add(tableRule);
-        
         DataSource firstDataSource = (DataSource) applicationContext.getBean("firstDataSource");
         Map<String, DataSource> dataSourceMap = new HashMap<>();
         dataSourceMap.put("ds", firstDataSource);
         Properties props = new Properties();
 //        props.put("sql.show", true);
         return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new HashMap<String, Object>(), props);
-    }*/
+    }
     
     private static long getWorkIdByHostIp(){
         try{
@@ -119,5 +127,22 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         }
         return (long)new Random().nextInt(1000);
     }
-    
+    /*private TableRule getOrderTableRule() throws SQLException {
+        String[] uns = new String[2];
+        for (int i = 0; i < 2; i++) {
+            uns[i] = order.concat("_").concat(String.valueOf(i));
+        }
+        TableRule tableRule = TableRule.build
+                .actualTables(Arrays.asList(uns))
+                .dataSourceRule("")
+                .tableShardingStrategy(new TableShardingStrategy("order_sn", new BikeOpStatTableShardingAlgorithm()))
+                .build();
+        return tableRule;
+    }
+    private ShardingRule shardingRule() throws SQLException {
+        ShardingRule shardingRule = ShardingRule.builder()
+                .dataSourceRule(getDataSourceRule())
+                .tableRules(Arrays.asList(getOrderTableRule())).build();
+        return shardingRule;
+    }*/
 }

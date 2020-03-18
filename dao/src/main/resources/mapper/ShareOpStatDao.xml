@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.dao.ShareOpStatDao">
+
+
+    <insert id="insertShareOpStat" parameterType="com.example.domain.entity.ShareOpStatEntity">
+      INSERT INTO share_op_stat (id,name,share_id)VALUES (#{id},#{name},#{shareId});
+    </insert>
+</mapper>
