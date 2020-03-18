@@ -1,7 +1,9 @@
 package com.example.service.impl;
 
+import com.example.domain.entity.ShareOpStatEntity;
 import com.example.domain.entity.TestEntity;
 import com.example.domain.entity.UsersEntity;
+import com.example.service.ShareOpStatService;
 import com.example.service.datasources.DynamicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.dao.TestDao;
@@ -15,6 +17,8 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private TestDao testDao;
+    @Autowired
+    private ShareOpStatService shareOpStatService;
     @Override
     public List<TestEntity> getAll() {
         return testDao.getAll();
@@ -32,5 +36,11 @@ public class TestServiceImpl implements TestService {
             DynamicDataSource.clearDataSource();
         }
         return list;
+    }
+
+    @Override
+    public void test(ShareOpStatEntity shareOpStatEntity) {
+        System.out.println("shareOpStatEntity = [" + shareOpStatEntity.toString() + "]");
+        shareOpStatService.insertShareOpStat(shareOpStatEntity);
     }
 }

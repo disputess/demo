@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.domain.entity.ShareOpStatEntity;
 import com.example.domain.entity.TestEntity;
 import com.example.domain.entity.UsersEntity;
 import org.springframework.stereotype.Service;
@@ -11,4 +12,6 @@ public interface TestService {
     List<TestEntity> getAll();
 
     List<UsersEntity> changeDatasource();
+
+    void test(ShareOpStatEntity shareOpStatEntity);
 }

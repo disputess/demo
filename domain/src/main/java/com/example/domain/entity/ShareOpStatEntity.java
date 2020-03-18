@@ -21,31 +21,16 @@ import java.io.Serializable;
 @Data
 public class ShareOpStatEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Long id;
+    private Long uid;
     private String name;
     private Long shareId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getShareId() {
-        return shareId;
-    }
-
-    public void setShareId(Long shareId) {
-        this.shareId = shareId;
+    @Override
+    public String toString() {
+        return "ShareOpStatEntity{" +
+                "uid=" + uid +
+                ", name='" + name + '\'' +
+                ", shareId=" + shareId +
+                '}';
     }
 }

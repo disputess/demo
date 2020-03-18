@@ -33,13 +33,14 @@ public class TestController {
     }
     @RequestMapping(value = "/share/table")
     public void shareTable(){
-        for(Long i =11L ;i< 21L;i++){
+
             ShareOpStatEntity  shareOpStatEntity = new ShareOpStatEntity();
-            shareOpStatEntity.setId(i);
-            shareOpStatEntity.setShareId(i);
+            shareOpStatEntity.setUid(System.currentTimeMillis());
+            shareOpStatEntity.setShareId(55L);
             shareOpStatEntity.setName("徐辣鸡");
+            testService.test(shareOpStatEntity);
             shareOpStatService.insertShareOpStat(shareOpStatEntity);
-        }
+
         logger.info("分表成功");
     }
 

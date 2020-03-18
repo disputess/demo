@@ -13,5 +13,5 @@ import com.example.service.datasources.annotation.DataSource;
  */
 public interface ShareOpStatService {
     @DataSource(name = DataSourceNames.SHARDING)
-    void insertShareOpStat(ShareOpStatEntity shareOpStatEntity);
+    <T> void insertShareOpStat(ShareOpStatEntity shareOpStatEntity);
 }

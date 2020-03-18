@@ -16,7 +16,7 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
 
     @Override
     @DataSource(name = DataSourceNames.SHARDING)
-    public void insertShareOpStat(ShareOpStatEntity shareOpStatEntity) {
+    public <T> void insertShareOpStat(ShareOpStatEntity shareOpStatEntity) {
         shareOpStatDao.insertShareOpStat(shareOpStatEntity);
     }
 }
