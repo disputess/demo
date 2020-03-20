@@ -43,5 +43,16 @@ public class TestController {
 
         logger.info("分表成功");
     }
+    @RequestMapping(value = "/create/table")
+    public void createTable(){
+        testService.createTable();
+
+        logger.info("建表成功");
+    }
+    @RequestMapping(value = "/insert/List")
+    public void insertList(){
+        testService.insertList();
+        logger.info("建表成功");
+    }
 
 }

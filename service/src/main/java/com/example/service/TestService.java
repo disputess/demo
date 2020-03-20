@@ -14,4 +14,8 @@ public interface TestService {
     List<UsersEntity> changeDatasource();
 
     void test(ShareOpStatEntity shareOpStatEntity);
+
+    void createTable();
+
+    void insertList();
 }

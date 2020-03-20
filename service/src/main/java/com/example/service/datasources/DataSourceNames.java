@@ -12,6 +12,7 @@ package com.example.service.datasources;
 public interface DataSourceNames {
     String FIRST = "first";
     String SECOND = "second";
+    String THIRD = "third";
     String SHARDING = "shardingDataSource";
 
 }

@@ -13,12 +13,14 @@ import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.net.Inet4Address;
@@ -62,11 +64,17 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         return DruidDataSourceBuilder.create().build();
     }
     @Bean
+    @ConfigurationProperties("spring.datasource.druid.third")
+    public DataSource thirdDataSource(){
+        return DruidDataSourceBuilder.create().build();
+    }
+    @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource, DataSource shardingDataSource) {
+    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource shardingDataSource) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
         targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
+        targetDataSources.put(DataSourceNames.THIRD, thirdDataSource);
         targetDataSources.put(DataSourceNames.SHARDING, shardingDataSource);
         List<DataSource> dsList= ImmutableList.of(firstDataSource,secondDataSource);
         scheduledExecutorService.scheduleAtFixedRate(()->{
@@ -84,8 +92,22 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         },30L,30L, TimeUnit.SECONDS);
         return new DynamicDataSource(firstDataSource, targetDataSources);
     }
-    
-  @Bean("shardingDataSource")
+    /**
+     * JDBC操作配置
+     */
+    @Bean(name = "firstDataSourceTemplate")
+    public JdbcTemplate firstDataSourceTemplate (){
+        return new JdbcTemplate((DataSource)applicationContext.getBean("firstDataSource")) ;
+    }
+    @Bean(name = "secondDataSourceTemplate")
+    public JdbcTemplate secondDataSourceTemplate (){
+        return new JdbcTemplate((DataSource)applicationContext.getBean("secondDataSource")) ;
+    }
+    @Bean(name = "thirdDataSourceTemplate")
+    public JdbcTemplate thirdDataSourceTemplate (){
+        return new JdbcTemplate((DataSource)applicationContext.getBean("thirdDataSource")) ;
+    }
+    @Bean("shardingDataSource")
     public DataSource shardingDataSource() throws SQLException {
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
         TableRuleConfiguration tableRule = new TableRuleConfiguration();
@@ -145,4 +167,53 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
                 .tableRules(Arrays.asList(getOrderTableRule())).build();
         return shardingRule;
     }*/
+
+   /**
+    * 功能描述
+    * @param
+    * @return
+    * @author songchaojie
+    * @Date: 2020年03月19日
+    **/
+
+    @Bean
+    public DataSource dataSource () throws Exception {
+        ShardingRuleConfiguration shardJdbcConfig = new ShardingRuleConfiguration();
+        DataSource firstDataSource = (DataSource) applicationContext.getBean("firstDataSource");
+        DataSource secondDataSource = (DataSource) applicationContext.getBean("secondDataSource");
+        DataSource thirdDataSource = (DataSource) applicationContext.getBean("thirdDataSource");
+
+        shardJdbcConfig.getTableRuleConfigs().add(getTableRule01());
+        shardJdbcConfig.getTableRuleConfigs().add(getTableRule02());
+        shardJdbcConfig.setDefaultDataSourceName("ds_0");
+        Map<String,DataSource> dataMap = new LinkedHashMap<>() ;
+        dataMap.put("ds_0",firstDataSource) ;
+        dataMap.put("ds_2",secondDataSource) ;
+        dataMap.put("ds_3",thirdDataSource) ;
+        Properties prop = new Properties();
+        return ShardingDataSourceFactory.createDataSource(dataMap, shardJdbcConfig, new HashMap<>(), prop);
+    }
+
+    /**
+     * Shard-JDBC 分表配置
+     */
+    private static TableRuleConfiguration getTableRule01() {
+        TableRuleConfiguration result = new TableRuleConfiguration();
+        result.setLogicTable("table_one");
+        result.setActualDataNodes("ds_${2..3}.table_one_${1..5}");
+        result.setKeyGeneratorColumnName("id");
+        //result.setKeyGenerator(System.currentTimeMillis());
+        result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new DataSourceAlg()));
+        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new TableAlg()));
+        return result;
+    }
+    private static TableRuleConfiguration getTableRule02() {
+        TableRuleConfiguration result = new TableRuleConfiguration();
+        result.setLogicTable("table_two");
+        result.setActualDataNodes("ds_${2..3}.table_two_${1..5}");
+        result.setKeyGeneratorColumnName("id");
+        result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new DataSourceAlg()));
+        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new TableAlg()));
+        return result;
+    }
 }

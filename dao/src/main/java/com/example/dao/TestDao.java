@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.domain.entity.TableOne;
 import com.example.domain.entity.TestEntity;
 import com.example.domain.entity.UsersEntity;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,4 +13,6 @@ public interface TestDao {
     List<TestEntity> getAll();
 
     List<UsersEntity> changeDatasource();
+
+    /*void insert(TableOne tableOne);*/
 }
