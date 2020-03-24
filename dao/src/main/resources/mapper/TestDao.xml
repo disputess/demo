@@ -9,5 +9,11 @@
     <select id="changeDatasource" resultType="com.example.domain.entity.UsersEntity">
         SELECT * FROM users
     </select>
+    <insert id="insert" parameterType="com.example.domain.entity.TableOne">
+       insert into table_one (phone, back_one, back_two,
+      back_three)
+    values (#{phone,jdbcType=VARCHAR}, #{backOne,jdbcType=VARCHAR}, #{backTwo,jdbcType=VARCHAR},
+      #{backThree,jdbcType=VARCHAR})
+    </insert>
 
 </mapper>

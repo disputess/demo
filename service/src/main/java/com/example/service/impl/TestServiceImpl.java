@@ -61,12 +61,13 @@ public class TestServiceImpl implements TestService {
     @Override
     public void createTable() {
         for (int i = 1 ; i <= 5 ; i++){
-            String executeSQL = "CREATE TABLE table_test_"+i+" (\n" +
+            String executeSQL = "CREATE TABLE table_1"+i+" (\n" +
                     "  `id` int(11) NOT NULL  COMMENT '主键ID',\n" +
                     "  `phone` varchar(20) NOT NULL COMMENT '手机号',\n" +
                     "  `back_one` varchar(50) DEFAULT NULL COMMENT '备用1',\n" +
                     "  `back_two` varchar(50) DEFAULT NULL COMMENT '备用2',\n" +
                     "  `back_three` varchar(50) DEFAULT NULL COMMENT '备用3',\n" +
+                    "  `share_id` Long(50) DEFAULT NULL COMMENT '分表id',\n" +
                     "  PRIMARY KEY (`id`),\n" +
                     "  KEY `phoneIndex` (`phone`)\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8;" ;
@@ -83,7 +84,7 @@ public class TestServiceImpl implements TestService {
             tableOne.setBackOne("back_one"+i);
             tableOne.setBackTwo("back_two"+i);
             tableOne.setBackThree("back_three"+i);
-           /* testDao.insert(tableOne) ;*/
+            testDao.insert(tableOne) ;
         }
     }
 }

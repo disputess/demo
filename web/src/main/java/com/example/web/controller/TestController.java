@@ -4,6 +4,8 @@ import com.example.domain.entity.TestEntity;
 import com.example.domain.entity.UsersEntity;
 import com.example.service.ShareOpStatService;
 import com.example.service.TestService;
+import com.example.web.annotation.SysOperatorLog;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,9 @@ public class TestController {
     private TestService testService;
     @Autowired
     private ShareOpStatService shareOpStatService;
+    @SysOperatorLog
     @RequestMapping(value = "/getAll")
-   public String getAll(){
+    public String getAll(Long testId,String testName){
        List<TestEntity> list = testService.getAll();
        return list.get(0).toString();
    }
@@ -54,5 +57,19 @@ public class TestController {
         testService.insertList();
         logger.info("建表成功");
     }
-
+    public static void main(String[] args) {
+        /*String str = "11111zhongZ.";
+        Pattern pattern = Pattern.compile(REGEX);
+        if (!pattern.matcher(str).matches()){
+            System.out.println("正则效验未通过!");
+        }*/
+        String mobile=    mobileEncrypt("17610838270");
+        System.out.println(mobile);
+    }
+    public static String mobileEncrypt(String mobile) {
+        if (StringUtils.isEmpty(mobile) || (mobile.length() != 11)) {
+            return mobile;
+        }
+        return mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+    }
 }

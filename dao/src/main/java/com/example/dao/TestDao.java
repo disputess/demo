@@ -14,5 +14,5 @@ public interface TestDao {
 
     List<UsersEntity> changeDatasource();
 
-    /*void insert(TableOne tableOne);*/
+    void insert(TableOne tableOne);
 }
