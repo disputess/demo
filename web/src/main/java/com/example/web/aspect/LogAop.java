@@ -1,11 +1,15 @@
 package com.example.web.aspect;
-/*
-import com.baojia.bike.operation.common.utils.RequestContextHolder;
-import javassist.*;
+
+/*import javassist.*;
 import javassist.bytecode.CodeAttribute;
 import javassist.bytecode.LocalVariableAttribute;
 import javassist.bytecode.MethodInfo;
 import org.apache.commons.lang3.ArrayUtils;*/
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.ibatis.javassist.*;
+import org.apache.ibatis.javassist.bytecode.CodeAttribute;
+import org.apache.ibatis.javassist.bytecode.LocalVariableAttribute;
+import org.apache.ibatis.javassist.bytecode.MethodInfo;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -34,14 +38,14 @@ public class LogAop {
    /* *//**
      * 打印类method的名称以及参数
      * @param point 切面
-     *//*
+     */
     public void printMethodParams(JoinPoint point){
         if(point == null){
             return;
         }
-        *//**
+        /**
          * Signature 包含了方法名、申明类型以及地址等信息
-         *//*
+         */
         String class_name = point.getTarget().getClass().getName();
         String method_name = point.getSignature().getName();
         //重新定义日志
@@ -49,20 +53,20 @@ public class LogAop {
         logger.info("class_name = {}",class_name);
         logger.info("method_name = {}",method_name);
 
-        *//**
+        /**
          * 获取方法的参数值数组。
-         *//*
+         */
         Object[] method_args = point.getArgs();
 
         try {
-            *//**
+            /**
             * 获取方法参数名称
-            *//*
+            */
             String[] paramNames = getFieldsName(class_name, method_name);
 
-            *//**
+            /**
              * 打印方法的参数名和参数值
-             *//*
+             */
             logParam(paramNames,method_args);
         } catch (Exception e) {
             //e.printStackTrace();
@@ -70,13 +74,13 @@ public class LogAop {
         }
     }
 
-    *//**
+    /**
      * 使用javassist来获取方法参数名称
      * @param class_name    类名
      * @param method_name   方法名
      * @return
      * @throws Exception
-     *//*
+     */
     private String[] getFieldsName(String class_name, String method_name) throws Exception {
         Class<?> clazz = Class.forName(class_name);
         String clazz_name = clazz.getName();
@@ -101,11 +105,11 @@ public class LogAop {
     }
 
 
-    *//**
+    /**
      * 判断是否为基本类型：包括String
      * @param clazz clazz
      * @return  true：是;     false：不是
-     *//*
+     */
     private boolean isPrimite(Class<?> clazz){
         if (clazz.isPrimitive() || clazz == String.class){
             return true;
@@ -115,18 +119,18 @@ public class LogAop {
     }
 
 
-    *//**
+    /**
      * 打印方法参数值  基本类型直接打印，非基本类型需要重写toString方法
      * @param paramsArgsName    方法参数名数组
      * @param paramsArgsValue   方法参数值数组
-     *//*
+     */
     private void logParam(String[] paramsArgsName,Object[] paramsArgsValue){
         if(ArrayUtils.isEmpty(paramsArgsName) || ArrayUtils.isEmpty(paramsArgsValue)){
             logger.info("该方法没有参数");
             return;
         }
         StringBuffer buffer = new StringBuffer();
-        int currentUid=RequestContextHolder.get().getUid();
+        //int currentUid=RequestContextHolder.get().getUid();
         for (int i=0;i<paramsArgsName.length;i++){
             //参数名
             String name = paramsArgsName[i];
@@ -144,10 +148,10 @@ public class LogAop {
             }
 
         }
-        logger.info(buffer.toString()+" uid="+currentUid +" ,deviceType="+RequestContextHolder.get().getDeviceType()+",appVersion="+RequestContextHolder.get().getAppVersion());
+        logger.info(buffer.toString()+"");
     }
 
-    *//**
+    /**
      * <li>Before       : 在方法执行前进行切面</li>
      * <li>execution    : 定义切面表达式</li>
      * <p>public * com.eparty.ccp.*.impl..*.*(..)
@@ -158,9 +162,9 @@ public class LogAop {
      *      <li>第四个*(..) : *表示所有任意方法名,..表示任意参数</li>
      * </p>
      * @param point 切面
-     *//*
-    @Before("execution(public * com.baojia.bike.operation.web.controller.*.*(..))")
+     */
+    @Before("execution(public * com.example.web.controller.*.*(..))")
     public void before(JoinPoint point) {
         this.printMethodParams(point);
-    }*/
+    }
 }
