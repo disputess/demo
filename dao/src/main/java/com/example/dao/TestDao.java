@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.domain.entity.ShareDatasourcesTableEntity;
 import com.example.domain.entity.TableOne;
 import com.example.domain.entity.TestEntity;
 import com.example.domain.entity.UsersEntity;
@@ -15,4 +16,6 @@ public interface TestDao {
     List<UsersEntity> changeDatasource();
 
     void insert(TableOne tableOne);
+
+    void insertShareDataSourcesTable(ShareDatasourcesTableEntity tableOne);
 }

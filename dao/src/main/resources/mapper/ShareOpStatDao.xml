@@ -7,4 +7,12 @@
     <insert id="insertShareOpStat" parameterType="com.example.domain.entity.ShareOpStatEntity">
       INSERT INTO share_op_stat (uid,name,share_id)VALUES (#{uid},#{name},#{shareId});
     </insert>
+
+
+    <insert id="insertShareDataSourcesTable" parameterType="com.example.domain.entity.ShareDatasourcesTableEntity">
+        insert into share (phone, back_one, back_two,
+        back_three,share_id)
+        values (#{phone,jdbcType=VARCHAR}, #{backOne,jdbcType=VARCHAR}, #{backTwo,jdbcType=VARCHAR},
+        #{backThree,jdbcType=VARCHAR},#{shareId,jdbcType=INTEGER})
+    </insert>
 </mapper>

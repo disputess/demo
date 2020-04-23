@@ -5,8 +5,10 @@ import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.google.common.collect.ImmutableList;
 import io.shardingsphere.api.config.ShardingRuleConfiguration;
 import io.shardingsphere.api.config.TableRuleConfiguration;
+import io.shardingsphere.api.config.strategy.InlineShardingStrategyConfiguration;
 import io.shardingsphere.api.config.strategy.StandardShardingStrategyConfiguration;
 import io.shardingsphere.core.keygen.DefaultKeyGenerator;
+import io.shardingsphere.core.keygen.KeyGenerator;
 import io.shardingsphere.core.rule.ShardingRule;
 import io.shardingsphere.core.rule.TableRule;
 import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
@@ -70,12 +72,13 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
     }
     @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource shardingDataSource) {
+    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource shardingDataSource,DataSource shardingDataSourceTable) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
         targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
         targetDataSources.put(DataSourceNames.THIRD, thirdDataSource);
         targetDataSources.put(DataSourceNames.SHARDING, shardingDataSource);
+        targetDataSources.put(DataSourceNames.SHARDINGTABLE, shardingDataSourceTable);
         List<DataSource> dsList= ImmutableList.of(firstDataSource,secondDataSource);
         scheduledExecutorService.scheduleAtFixedRate(()->{
             for(DataSource ds:dsList){
@@ -176,20 +179,21 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
     * @Date: 2020年03月19日
     **/
 
-    @Bean
-    public DataSource dataSource () throws Exception {
+    @Bean("shardingDataSourceTable")
+    public DataSource shardingDataSourceTableDataSource () throws Exception {
         ShardingRuleConfiguration shardJdbcConfig = new ShardingRuleConfiguration();
         DataSource firstDataSource = (DataSource) applicationContext.getBean("firstDataSource");
         DataSource secondDataSource = (DataSource) applicationContext.getBean("secondDataSource");
         DataSource thirdDataSource = (DataSource) applicationContext.getBean("thirdDataSource");
+        Map<String,DataSource> dataMap = new LinkedHashMap<>() ;
+        //dataMap.put("ds_0",firstDataSource) ;
 
         shardJdbcConfig.getTableRuleConfigs().add(getTableRule01());
-        shardJdbcConfig.getTableRuleConfigs().add(getTableRule02());
-        shardJdbcConfig.setDefaultDataSourceName("ds_0");
-        Map<String,DataSource> dataMap = new LinkedHashMap<>() ;
-        dataMap.put("ds_0",firstDataSource) ;
-        dataMap.put("ds_2",secondDataSource) ;
-        dataMap.put("ds_3",thirdDataSource) ;
+        //shardJdbcConfig.getTableRuleConfigs().add(getTableRule02());
+        shardJdbcConfig.setDefaultDataSourceName("ds_2");
+        dataMap.put("ds_2",firstDataSource) ;
+        dataMap.put("ds_0",secondDataSource) ;
+        dataMap.put("ds_1",thirdDataSource) ;
         Properties prop = new Properties();
         return ShardingDataSourceFactory.createDataSource(dataMap, shardJdbcConfig, new HashMap<>(), prop);
     }
@@ -199,21 +203,37 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
      */
     private static TableRuleConfiguration getTableRule01() {
         TableRuleConfiguration result = new TableRuleConfiguration();
-        result.setLogicTable("table_one");
-        result.setActualDataNodes("ds_${2..3}.table_one_${1..5}");
+        result.setLogicTable("share");
+        result.setActualDataNodes("ds_${0..1}.share_$->{0..1}");
+        //result.setActualDataNodes("ds_$->{2..3}.share_$->{0..4}");
         result.setKeyGeneratorColumnName("id");
+        long workId = getWorkIdByHostIp();
+        logger.error("KeyGenerator workId:{}", workId);
+        DefaultKeyGenerator.setWorkerId(workId);
         //result.setKeyGenerator(System.currentTimeMillis());
-        result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new DataSourceAlg()));
-        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new TableAlg()));
+        result.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("share_id","ds_${share_id % 2}"));
+
+        //result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("share_id", new DataSourceAlg()));
+        // 实际分库分表字段应该是两个不同的字段来区分规则
+        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("share_id", new TableAlg()));
         return result;
     }
-    private static TableRuleConfiguration getTableRule02() {
+    /*private static TableRuleConfiguration getTableRule02() {
         TableRuleConfiguration result = new TableRuleConfiguration();
-        result.setLogicTable("table_two");
-        result.setActualDataNodes("ds_${2..3}.table_two_${1..5}");
+        result.setLogicTable("share");
+        result.setActualDataNodes("ds_${0..1}.share_$->{5..9}");
+       // result.setActualDataNodes("ds_$->{2..3}.share_$->{5..9}");
         result.setKeyGeneratorColumnName("id");
-        result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new DataSourceAlg()));
-        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new TableAlg()));
+        long workId = getWorkIdByHostIp();
+        logger.error("KeyGenerator workId:{}", workId);
+        DefaultKeyGenerator.setWorkerId(workId);
+        result.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("share_id","ds_${share_id % 2}"));
+
+        //result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("share_id", new DataSourceAlg()));
+        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("share_id", new TableAlg()));
         return result;
     }
+*/
+
+
 }

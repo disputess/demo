@@ -1,9 +1,6 @@
 package com.example.service.impl;
 
-import com.example.domain.entity.ShareOpStatEntity;
-import com.example.domain.entity.TableOne;
-import com.example.domain.entity.TestEntity;
-import com.example.domain.entity.UsersEntity;
+import com.example.domain.entity.*;
 import com.example.service.ShareOpStatService;
 import com.example.service.datasources.DynamicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,31 +57,32 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void createTable() {
-        for (int i = 1 ; i <= 5 ; i++){
-            String executeSQL = "CREATE TABLE table_1"+i+" (\n" +
+        for (int i = 5 ; i <= 9 ; i++){
+            String executeSQL = "CREATE TABLE share_"+i+" (\n" +
                     "  `id` int(11) NOT NULL  COMMENT '主键ID',\n" +
                     "  `phone` varchar(20) NOT NULL COMMENT '手机号',\n" +
                     "  `back_one` varchar(50) DEFAULT NULL COMMENT '备用1',\n" +
                     "  `back_two` varchar(50) DEFAULT NULL COMMENT '备用2',\n" +
                     "  `back_three` varchar(50) DEFAULT NULL COMMENT '备用3',\n" +
-                    "  `share_id` Long(50) DEFAULT NULL COMMENT '分表id',\n" +
+                    "  `share_id` int(50) DEFAULT NULL COMMENT '分表id',\n" +
                     "  PRIMARY KEY (`id`),\n" +
                     "  KEY `phoneIndex` (`phone`)\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8;" ;
-            secondDataSourceTemplate.execute(executeSQL);
+            //secondDataSourceTemplate.execute(executeSQL);
             thirdDataSourceTemplate.execute(executeSQL);
         }
     }
 
     @Override
     public void insertList() {
-        for (int i = 0 ; i < 10000 ; i++){
-            TableOne tableOne = new TableOne() ;
+        for (int i = 1 ; i < 10000 ; i++){
+            ShareDatasourcesTableEntity tableOne = new ShareDatasourcesTableEntity() ;
             tableOne.setPhone("phone"+i);
             tableOne.setBackOne("back_one"+i);
             tableOne.setBackTwo("back_two"+i);
             tableOne.setBackThree("back_three"+i);
-            testDao.insert(tableOne) ;
+            tableOne.setShareId(i);
+            testDao.insertShareDataSourcesTable(tableOne);
         }
     }
 }

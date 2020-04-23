@@ -30,19 +30,18 @@ public class DataSourceAlg implements PreciseShardingAlgorithm<Long> {
     private static Logger LOG = LoggerFactory.getLogger(DataSourceAlg.class);
     @Override
     public String doSharding(Collection<String> names, PreciseShardingValue<Long> value) {
-        /*LOG.debug("分库算法参数 {},{}",names,value);
-        for (String dataSourcesName : names){
+        System.out.println("分库算法参数 {},{}"+names+value);
+        /*for (String dataSourcesName : names){
             if (dataSourcesName.endsWith(value.getValue() % 2+ "")){
                 return dataSourcesName;
             }
-        }*/
+        }
+        */
         for (String dataSourcesName : names) {
-            int i = 2;
-            if (value.getValue() % 2 != 0) {
-                i = 3;
-            }
-            if (dataSourcesName.endsWith(i + "")) {
-                return dataSourcesName;
+            if((value.getValue() % 10)>=5){
+                dataSourcesName.endsWith(3+"");
+            }else{
+                dataSourcesName.endsWith(2+"");
             }
         }
         throw new UnsupportedOperationException();

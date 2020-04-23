@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.domain.entity.ShareDatasourcesTableEntity;
 import com.example.domain.entity.ShareOpStatEntity;
 import com.example.domain.entity.TestEntity;
 import com.example.domain.entity.UsersEntity;
@@ -11,4 +12,6 @@ import java.util.List;
 @Mapper
 public interface ShareOpStatDao {
     void insertShareOpStat(ShareOpStatEntity shareOpStatEntity);
+
+    void insertShareDataSourcesTable(ShareDatasourcesTableEntity tableOne);
 }
