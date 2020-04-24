@@ -116,7 +116,7 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         TableRuleConfiguration tableRule = new TableRuleConfiguration();
         tableRule.setLogicTable("share_op_stat");
         tableRule.setActualDataNodes("ds.share_op_stat_$->{0..1}");
-        tableRule.setKeyGeneratorColumnName("uid");
+        tableRule.setKeyGeneratorColumnName("id");
         long workId = getWorkIdByHostIp();
         logger.error("KeyGenerator workId:{}", workId);
         DefaultKeyGenerator.setWorkerId(workId);

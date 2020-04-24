@@ -34,29 +34,7 @@ public class TestController {
         List<UsersEntity> list = testService.changeDatasource();
         return list.toString();
     }
-    @RequestMapping(value = "/share/table")
-    public void shareTable(){
 
-            ShareOpStatEntity  shareOpStatEntity = new ShareOpStatEntity();
-            shareOpStatEntity.setUid(System.currentTimeMillis());
-            shareOpStatEntity.setShareId(55L);
-            shareOpStatEntity.setName("徐辣鸡");
-            testService.test(shareOpStatEntity);
-            shareOpStatService.insertShareOpStat(shareOpStatEntity);
-
-        logger.info("分表成功");
-    }
-    @RequestMapping(value = "/create/table")
-    public void createTable(){
-        testService.createTable();
-
-        logger.info("建表成功");
-    }
-    @RequestMapping(value = "/insert/List")
-    public void insertList(){
-        shareOpStatService.insertList();
-        logger.info("分库分表成功");
-    }
 
     public static void main(String[] args) {
         System.out.println((float)(((10/3)*8)*((10/3)*8))/(((10/3)*6)*((10/3)*6)));

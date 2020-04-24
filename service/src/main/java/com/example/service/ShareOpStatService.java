@@ -1,8 +1,11 @@
 package com.example.service;
 
+import com.example.domain.entity.ShareDatasourcesTableEntity;
 import com.example.domain.entity.ShareOpStatEntity;
 import com.example.service.datasources.DataSourceNames;
 import com.example.service.datasources.annotation.DataSource;
+
+import java.util.List;
 
 /**
  * @author 123
@@ -16,4 +19,6 @@ public interface ShareOpStatService {
     <T> void insertShareOpStat(ShareOpStatEntity shareOpStatEntity);
     @DataSource(name = DataSourceNames.SHARDINGTABLE)
     void insertList();
+    @DataSource(name = DataSourceNames.SHARDINGTABLE)
+    List<ShareDatasourcesTableEntity> selectList();
 }

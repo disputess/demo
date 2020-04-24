@@ -16,3 +16,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.example.entity
+  #字段驼峰转换
+  db-column-underline: true
+  #刷新mapper 调试神器
+  refresh-mapper: false

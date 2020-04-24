@@ -14,4 +14,6 @@ public interface ShareOpStatDao {
     void insertShareOpStat(ShareOpStatEntity shareOpStatEntity);
 
     void insertShareDataSourcesTable(ShareDatasourcesTableEntity tableOne);
+
+    List<ShareDatasourcesTableEntity> selectList();
 }

@@ -10,6 +10,8 @@ import com.example.service.datasources.annotation.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("shareOpStatService")
 public class ShareOpStatServiceImpl implements ShareOpStatService {
     @Autowired
@@ -33,5 +35,11 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
             tableOne.setShareId(i);
             shareOpStatDao.insertShareDataSourcesTable(tableOne);
         }
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.SHARDINGTABLE)
+    public List<ShareDatasourcesTableEntity> selectList() {
+        return shareOpStatDao.selectList();
     }
 }

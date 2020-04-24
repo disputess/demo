@@ -5,7 +5,7 @@
 
 
     <insert id="insertShareOpStat" parameterType="com.example.domain.entity.ShareOpStatEntity">
-      INSERT INTO share_op_stat (uid,name,share_id)VALUES (#{uid},#{name},#{shareId});
+      INSERT INTO share_op_stat (name,share_id)VALUES (#{name},#{shareId});
     </insert>
 
 
@@ -15,4 +15,13 @@
         values (#{phone,jdbcType=VARCHAR}, #{backOne,jdbcType=VARCHAR}, #{backTwo,jdbcType=VARCHAR},
         #{backThree,jdbcType=VARCHAR},#{shareId,jdbcType=INTEGER})
     </insert>
+    <select id="selectList" resultType="com.example.domain.entity.ShareDatasourcesTableEntity">
+       select id ,
+       phone ,
+       back_one backOne,
+        back_two backTwo,
+        back_three backThree,
+        share_id shareId
+       from  share where share_id in (1,2,3,4,5,6,7,8,9,10)
+    </select>
 </mapper>

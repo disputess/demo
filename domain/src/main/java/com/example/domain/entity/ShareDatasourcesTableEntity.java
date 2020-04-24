@@ -59,4 +59,16 @@ public class ShareDatasourcesTableEntity {
     public void setShareId(Integer shareId) {
         this.shareId = shareId;
     }
+
+    @Override
+    public String toString() {
+        return "ShareDatasourcesTableEntity{" +
+                "id=" + id +
+                ", phone='" + phone + '\'' +
+                ", backOne='" + backOne + '\'' +
+                ", backTwo='" + backTwo + '\'' +
+                ", backThree='" + backThree + '\'' +
+                ", shareId=" + shareId +
+                '}';
+    }
 }
