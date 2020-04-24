@@ -36,10 +36,10 @@ public class TableAlg implements PreciseShardingAlgorithm<Integer> {
 
         }*/
         if(list.contains(value.getValue() % 10)){
-            LOG.info("实际插入数据表名{},分表字段实际值{}",value.getLogicTableName()+"_0",value.getValue());
+            LOG.info("实际使用的表名{},分表字段实际值{}",value.getLogicTableName()+"_0",value.getValue());
             return  value.getLogicTableName()+"_0";
         }else{
-            LOG.info("实际插入数据表名{},分表字段实际值{}",value.getLogicTableName()+"_1",value.getValue());
+            LOG.info("实际使用的表名{},分表字段实际值{}",value.getLogicTableName()+"_1",value.getValue());
             return  value.getLogicTableName()+"_1";
         }
 
