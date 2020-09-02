@@ -1,9 +1,6 @@
 package com.example.dao;
 
-import com.example.domain.entity.ShareDatasourcesTableEntity;
-import com.example.domain.entity.ShareOpStatEntity;
-import com.example.domain.entity.TestEntity;
-import com.example.domain.entity.UsersEntity;
+import com.example.domain.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,4 +13,10 @@ public interface ShareOpStatDao {
     void insertShareDataSourcesTable(ShareDatasourcesTableEntity tableOne);
 
     List<ShareDatasourcesTableEntity> selectList();
+
+    BatteryLogEntity getLastBatteryLog(@Param("batteryNo") String batteryNo);
+
+    BikeEntity getBikeLocation(@Param("plateNo")String plateNo);
+
+    List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(@Param("batteryNo") String batteryNo);
 }

@@ -71,12 +71,18 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         return DruidDataSourceBuilder.create().build();
     }
     @Bean
+    @ConfigurationProperties("spring.datasource.druid.fourth")
+    public DataSource fourthDataSource(){
+        return DruidDataSourceBuilder.create().build();
+    }
+    @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource shardingDataSource,DataSource shardingDataSourceTable) {
+    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource fourthDataSource, DataSource shardingDataSource,DataSource shardingDataSourceTable) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
         targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
         targetDataSources.put(DataSourceNames.THIRD, thirdDataSource);
+        targetDataSources.put(DataSourceNames.FOUTTH, fourthDataSource);
         targetDataSources.put(DataSourceNames.SHARDING, shardingDataSource);
         targetDataSources.put(DataSourceNames.SHARDINGTABLE, shardingDataSourceTable);
         List<DataSource> dsList= ImmutableList.of(firstDataSource,secondDataSource);
@@ -152,24 +158,6 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         }
         return (long)new Random().nextInt(1000);
     }
-    /*private TableRule getOrderTableRule() throws SQLException {
-        String[] uns = new String[2];
-        for (int i = 0; i < 2; i++) {
-            uns[i] = order.concat("_").concat(String.valueOf(i));
-        }
-        TableRule tableRule = TableRule.build
-                .actualTables(Arrays.asList(uns))
-                .dataSourceRule("")
-                .tableShardingStrategy(new TableShardingStrategy("order_sn", new BikeOpStatTableShardingAlgorithm()))
-                .build();
-        return tableRule;
-    }
-    private ShardingRule shardingRule() throws SQLException {
-        ShardingRule shardingRule = ShardingRule.builder()
-                .dataSourceRule(getDataSourceRule())
-                .tableRules(Arrays.asList(getOrderTableRule())).build();
-        return shardingRule;
-    }*/
 
    /**
     * 功能描述

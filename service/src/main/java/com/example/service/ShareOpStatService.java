@@ -1,7 +1,6 @@
 package com.example.service;
 
-import com.example.domain.entity.ShareDatasourcesTableEntity;
-import com.example.domain.entity.ShareOpStatEntity;
+import com.example.domain.entity.*;
 import com.example.service.datasources.DataSourceNames;
 import com.example.service.datasources.annotation.DataSource;
 
@@ -21,4 +20,10 @@ public interface ShareOpStatService {
     void insertList();
     @DataSource(name = DataSourceNames.SHARDINGTABLE)
     List<ShareDatasourcesTableEntity> selectList();
+    @DataSource(name = DataSourceNames.FOUTTH)
+    BatteryLogEntity getLastBatteryLog(String batteryNo);
+    @DataSource(name = DataSourceNames.FOUTTH)
+    BikeEntity getBikeLocation(String plateNo);
+    @DataSource(name = DataSourceNames.FOUTTH)
+    List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(String batteryNo);
 }

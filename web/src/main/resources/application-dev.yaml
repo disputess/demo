@@ -17,6 +17,31 @@ spring:
          url: jdbc:mysql://39.107.253.206:3306/test3?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
          username: root
          password: rPCyKmOOQ1jpEG3h
+       fourth:  #蜜步数据源从库
+         url: jdbc:mysql://39.107.253.206:3306/test3?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
+         username: root
+         password: rPCyKmOOQ1jpEG3h
+         #宋爸爸专用数据源，闲杂人等不要乱动
+         #url: jdbc:mysql://10.1.11.14:3310/baojia_bike?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+         #username: readonly
+         #password: m965soD6tLdnF3MF
+         #url: jdbc:mysql://10.1.11.110:3310/baojia_bike?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+         #username: baojia_xm
+         #password: DgisNKhg
+         type: com.alibaba.druid.pool.DruidDataSource
+         driverClassName: com.mysql.jdbc.Driver
+         initialSize: 5
+         maxActive: 50
+         minIdle: 5
+         maxWait: 10000
+         timeBetweenEvictionRunsMillis: 600000
+         minEvictableIdleTimeMillis: 1800000
+         removeAbandonedTimeout: 180
+         validationQuery: SELECT 1
+         removeAbandoned: true
+         testWhileIdle: true
+         testOnBorrow: true
+         testOnReturn: false
        initial-size: 10
        max-active: 100
        min-idle: 10

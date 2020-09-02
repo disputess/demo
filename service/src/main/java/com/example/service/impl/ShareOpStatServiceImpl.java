@@ -2,8 +2,7 @@ package com.example.service.impl;
 
 import com.example.dao.ShareOpStatDao;
 import com.example.dao.TestDao;
-import com.example.domain.entity.ShareDatasourcesTableEntity;
-import com.example.domain.entity.ShareOpStatEntity;
+import com.example.domain.entity.*;
 import com.example.service.ShareOpStatService;
 import com.example.service.datasources.DataSourceNames;
 import com.example.service.datasources.annotation.DataSource;
@@ -41,5 +40,23 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
     @DataSource(name = DataSourceNames.SHARDINGTABLE)
     public List<ShareDatasourcesTableEntity> selectList() {
         return shareOpStatDao.selectList();
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public BatteryLogEntity getLastBatteryLog(String batteryNo) {
+        return shareOpStatDao.getLastBatteryLog(batteryNo);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public BikeEntity getBikeLocation(String plateNo) {
+        return shareOpStatDao.getBikeLocation( plateNo);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(String batteryNo) {
+        return shareOpStatDao.getbatteryAccumulateEntityList(batteryNo);
     }
 }
