@@ -25,7 +25,7 @@
        from  share where share_id in (1,2,3,4,5,6,7,8,9,10)
     </select>
 
-    <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
+    <!--<select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
         select  id ,
         battery_no batteryNo,
         operator_id operatorId,
@@ -35,7 +35,7 @@
         operate_type operateType,
         role
         from battery_log where battery_no = #{batteryNo} order by id desc limit 1
-    </select>
+    </select>-->
    <!-- <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
         select  battery_id  batteryId,
         battery_no batteryNo
@@ -43,12 +43,12 @@
 
         from battery where battery_no = #{batteryNo}
     </select>-->
-    <select id="getBikeLocation" resultType="com.example.domain.entity.BikeEntity">
+   <!-- <select id="getBikeLocation" resultType="com.example.domain.entity.BikeEntity">
 
         select plate_no plateNo,longitude,latitude from bike_state where plate_no = #{plateNo};
     </select>
     <select id="getbatteryAccumulateEntityList" resultType="com.example.domain.entity.BatteryAccumulateEntity">
        select bike_id bikeId,plate_no plateNo,battery_no batteryNo,last_orders_count lastOrdersCount,last_mileage lastMileage,total_amount totalAmount,total_order_amount totalOrderAmount, start_time startTime,end_time endTime ,create_time createTime
        from battery_accumulate where battery_no = #{batteryNo} and create_time BETWEEN '2020-05-20 00:00:00'AND '2020-06-20 23:59:00'
-    </select>
+    </select>-->
 </mapper>

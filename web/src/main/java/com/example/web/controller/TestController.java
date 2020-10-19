@@ -1,10 +1,10 @@
 package com.example.web.controller;
 import com.alibaba.excel.EasyExcel;
-import com.example.common.utils.AMapUtil;
+//import com.example.common.utils.AMapUtil;
 import com.example.domain.entity.*;
 import com.example.service.ShareOpStatService;
 import com.example.service.TestService;
-import com.example.service.utils.easyexcel.EasyExcelUtils;
+//import com.example.service.utils.easyexcel.EasyExcelUtils;
 import com.example.web.annotation.SysOperatorLog;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.io.IOUtils;
@@ -59,7 +59,7 @@ public class TestController {
         String fileName = "电池最后一条日志导出"+System.currentTimeMillis();
         String sheetName = "第一个sheet页";
         List<String> list = new ArrayList<>();
-        List<BatteryLogEntity> log = new ArrayList<BatteryLogEntity>();
+//        List<BatteryLogEntity> log = new ArrayList<BatteryLogEntity>();
         try {
             list= IOUtils.readLines(getClass().getClassLoader().getResourceAsStream("电池日志.txt"));
         } catch (IOException e) {
@@ -69,19 +69,19 @@ public class TestController {
         System.out.println(list.size());
         for(String batteryNo:list){
             if(StringUtils.isNotBlank(batteryNo)){
-                BatteryLogEntity batteryLogEntity = shareOpStatService.getLastBatteryLog(batteryNo);
-                if(batteryLogEntity != null){
-                    log.add(batteryLogEntity);
-                }
+//                BatteryLogEntity batteryLogEntity = shareOpStatService.getLastBatteryLog(batteryNo);
+//                if(batteryLogEntity != null){
+//                    log.add(batteryLogEntity);
+//                }
             }
         }
         // 写法1
         // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
         // 如果这里想使用03 则 传入excelType参数即可
-       try {
-            EasyExcelUtils.downLoadMultiRowTitle(response,BatteryLogEntity.class,log, fileName, sheetName);
-        } catch (IOException e) {
-         }
+//       try {
+//            EasyExcelUtils.downLoadMultiRowTitle(response,BatteryLogEntity.class,log, fileName, sheetName);
+//        } catch (IOException e) {
+//         }
        /* System.out.println("有此开始");
       for(BatteryLogEntity batt:log){
           System.out.println(batt.getBatteryNo() +"    "+ batt.getBatteryId());
@@ -99,7 +99,7 @@ public class TestController {
         String fileName = "多品牌车辆位置导出";
         String sheetName = "第一个sheet页";
         List<String> list = new ArrayList<>();
-        List<BikeEntity> log = new ArrayList<BikeEntity>();
+//        List<BikeEntity> log = new ArrayList<BikeEntity>();
         try {
             list= IOUtils.readLines(getClass().getClassLoader().getResourceAsStream("bike2.txt"));
         } catch (IOException e) {
@@ -108,27 +108,27 @@ public class TestController {
         }
         System.out.println(list.size());
         for(String plateNo:list){
-            if(StringUtils.isNotBlank(plateNo)){
-                BikeEntity bike = shareOpStatService.getBikeLocation(plateNo);
-                if(bike != null){
-                    //车辆位置
-                    if(bike.getLongitude()!=null&&bike.getLatitude()!=null){
-                        String address = AMapUtil.getAddress(String.valueOf(bike.getLongitude()), String.valueOf(bike.getLatitude()));
-                        bike.setAddress(address);
-                    }
-                    // System.out.println(batteryLogEntity.getBatteryNo() +"  "+ batteryLogEntity.getOperatorId() +"  "+ batteryLogEntity.getOperatorName() +"  "+ format.format(batteryLogEntity.getCreateTime()) +"  "+ batteryLogEntity.getOperateContent() +"  "+ batteryLogEntity.getRole());
-                    log.add(bike);
-                }
-            }
+//            if(StringUtils.isNotBlank(plateNo)){
+//                BikeEntity bike = shareOpStatService.getBikeLocation(plateNo);
+//                if(bike != null){
+//                    //车辆位置
+//                    if(bike.getLongitude()!=null&&bike.getLatitude()!=null){
+//                        String address = AMapUtil.getAddress(String.valueOf(bike.getLongitude()), String.valueOf(bike.getLatitude()));
+//                        bike.setAddress(address);
+//                    }
+//                    // System.out.println(batteryLogEntity.getBatteryNo() +"  "+ batteryLogEntity.getOperatorId() +"  "+ batteryLogEntity.getOperatorName() +"  "+ format.format(batteryLogEntity.getCreateTime()) +"  "+ batteryLogEntity.getOperateContent() +"  "+ batteryLogEntity.getRole());
+//                    log.add(bike);
+//                }
+//            }
         }
         // 写法1
         // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
         // 如果这里想使用03 则 传入excelType参数即可
-        try {
-            EasyExcelUtils.downLoadMultiRowTitle(response,BikeEntity.class,log, fileName, sheetName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            EasyExcelUtils.downLoadMultiRowTitle(response,BikeEntity.class,log, fileName, sheetName);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -138,7 +138,7 @@ public class TestController {
         String fileName = "电池里程导出";
         String sheetName = "第一个sheet页";
         List<String> list = new ArrayList<>();
-        List<BatteryAccumulateEntity> log = new ArrayList<BatteryAccumulateEntity>();
+//        List<BatteryAccumulateEntity> log = new ArrayList<BatteryAccumulateEntity>();
         try {
             list= IOUtils.readLines(getClass().getClassLoader().getResourceAsStream("battery_no_list.txt"));
         } catch (IOException e) {
@@ -147,20 +147,20 @@ public class TestController {
         }
         for(String batteryNo:list){
             if(StringUtils.isNotBlank(batteryNo)){
-                List<BatteryAccumulateEntity> batteryAccumulateEntityList = shareOpStatService.getbatteryAccumulateEntityList(batteryNo);
-                if(batteryAccumulateEntityList != null){
-                    log.addAll(batteryAccumulateEntityList);
-                }
+//                List<BatteryAccumulateEntity> batteryAccumulateEntityList = shareOpStatService.getbatteryAccumulateEntityList(batteryNo);
+//                if(batteryAccumulateEntityList != null){
+//                    log.addAll(batteryAccumulateEntityList);
+//                }
             }
         }
-        System.out.println(log.size());
+//        System.out.println(log.size());
         // 写法1
         // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
         // 如果这里想使用03 则 传入excelType参数即可
-        try {
-            EasyExcelUtils.downLoadMultiRowTitle(response,BatteryAccumulateEntity.class,log, fileName, sheetName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            EasyExcelUtils.downLoadMultiRowTitle(response,BatteryAccumulateEntity.class,log, fileName, sheetName);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

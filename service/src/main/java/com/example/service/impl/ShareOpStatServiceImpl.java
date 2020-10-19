@@ -42,7 +42,7 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
         return shareOpStatDao.selectList();
     }
 
-    @Override
+    /*@Override
     @DataSource(name = DataSourceNames.FOUTTH)
     public BatteryLogEntity getLastBatteryLog(String batteryNo) {
         return shareOpStatDao.getLastBatteryLog(batteryNo);
@@ -58,5 +58,5 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
     @DataSource(name = DataSourceNames.FOUTTH)
     public List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(String batteryNo) {
         return shareOpStatDao.getbatteryAccumulateEntityList(batteryNo);
-    }
+    }*/
 }

@@ -20,10 +20,10 @@ public interface ShareOpStatService {
     void insertList();
     @DataSource(name = DataSourceNames.SHARDINGTABLE)
     List<ShareDatasourcesTableEntity> selectList();
-    @DataSource(name = DataSourceNames.FOUTTH)
+    /*@DataSource(name = DataSourceNames.FOUTTH)
     BatteryLogEntity getLastBatteryLog(String batteryNo);
     @DataSource(name = DataSourceNames.FOUTTH)
     BikeEntity getBikeLocation(String plateNo);
     @DataSource(name = DataSourceNames.FOUTTH)
-    List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(String batteryNo);
+    List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(String batteryNo);*/
 }

@@ -14,9 +14,9 @@ public interface ShareOpStatDao {
 
     List<ShareDatasourcesTableEntity> selectList();
 
-    BatteryLogEntity getLastBatteryLog(@Param("batteryNo") String batteryNo);
-
-    BikeEntity getBikeLocation(@Param("plateNo")String plateNo);
-
-    List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(@Param("batteryNo") String batteryNo);
+//    BatteryLogEntity getLastBatteryLog(@Param("batteryNo") String batteryNo);
+//
+//    BikeEntity getBikeLocation(@Param("plateNo")String plateNo);
+//
+//    List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(@Param("batteryNo") String batteryNo);
 }
