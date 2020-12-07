@@ -23,6 +23,7 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
         shareOpStatDao.insertShareOpStat(shareOpStatEntity);
     }
 
+
     @Override
     @DataSource(name = DataSourceNames.SHARDINGTABLE)
     public void insertList() {
