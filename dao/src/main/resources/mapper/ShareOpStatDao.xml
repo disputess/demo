@@ -25,7 +25,7 @@
        from  share where share_id in (1,2,3,4,5,6,7,8,9,10)
     </select>
 
-    <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
+    <!-- <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
         select  id ,
         battery_no batteryNo,
         operator_id operatorId,
@@ -35,14 +35,14 @@
         operate_type operateType,
         role
         from battery_log where battery_no = #{batteryNo} order by id desc limit 1
-    </select>
-   <!-- <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
+    </select>-->
+    <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
         select  battery_id  batteryId,
         battery_no batteryNo
 
 
         from battery where battery_no = #{batteryNo}
-    </select>-->
+    </select>
     <select id="getBikeLocation" resultType="com.example.domain.entity.BikeEntity">
 
         select plate_no plateNo,longitude,latitude from bike_state where plate_no = #{plateNo};
@@ -50,5 +50,165 @@
     <select id="getbatteryAccumulateEntityList" resultType="com.example.domain.entity.BatteryAccumulateEntity">
        select bike_id bikeId,plate_no plateNo,battery_no batteryNo,last_orders_count lastOrdersCount,last_mileage lastMileage,total_amount totalAmount,total_order_amount totalOrderAmount, start_time startTime,end_time endTime ,create_time createTime
        from battery_accumulate where battery_no = #{batteryNo} and create_time BETWEEN '2020-05-20 00:00:00'AND '2020-06-20 23:59:00'
+    </select>
+    <select id="getLastBatteryAddress" resultType="com.example.domain.entity.BatteryEntity">
+      select
+        battery_no batteryNo,
+
+	longitude,
+
+	latitude,
+	modify_time modifyTime,
+	gateway_time gatewayTime,
+	gps_time gpsTime
+
+        from battery where battery_no = #{batteryNo}
+    </select>
+
+    <select id="getBikeAddress" resultType="com.example.domain.entity.BikeEntity">
+    select b.plate_no plateNo,b.longitude as longitude ,b.latitude as latitude from bike a,bike_state b where a.plate_no = b.plate_no and  a.ad_code ='110100' and a.operate_area_id = 1548 and b.bike_status = 30;
+	</select>
+
+
+
+    <select id="importListTask" resultType="com.example.domain.entity.OperatorTaskEntity">
+        SELECT
+        us.operator_name AS operatorName,
+        us.mobile AS operateMobile,
+        task.plate_no AS plateNo,
+        task.bike_status as bikeStatus,
+        task.task_type as taskType,
+        task.task_subtype as taskSubtype,
+        task.process_status as processStatus,
+        task.audit_status as auditStatus,
+        task.receipt_time as receiptTime,
+        task.finish_time as finishTime,
+        task.operator_task_id AS operatorTaskId,
+        task.audit_time AS auditTime,
+        task.assign_type AS assignType,
+        cp.company_name as companyName,
+        op.operate_area_name as operateAreaName,
+        task.task_cancel_type as taskCancelType,
+        task.finish_bike_lng as finishBikeLng,
+        task.finish_bike_lat as finishBikeLat,
+        task.operator_lng as operatorLng,
+        task.operator_lat as operatorLat,
+        task.battery_level as batteryLevel,
+        task.user_distance as userDistance,
+        task.trouble_status as troubleStatus,
+        task.attendance_detail_id AS  attendanceDetailId,
+        task.task_type_appear_time as taskTypeAppearTime,
+        task.create_time as createTime
+        FROM
+        operator_task task force index(idex_tfp)
+        LEFT JOIN operator_users us ON us.operator_users_id = task.uid
+        left join company cp on cp.company_id = task.company_id
+        left join operate_area op on op.operate_area_id = task.operare_area_id
+
+
+
+
+        where
+        operator_type =30
+        task.task_type = 1
+        AND task.process_status=3
+        and task.company_id = 13
+        and task.ad_code = '110100'
+        and task.finish_time <![CDATA[ >= ]]> CONCAT('2020-07-01', ' 00:00:00')
+        and task.finish_time <![CDATA[ <= ]]> CONCAT('2020-07-31', ' 23:59:59')
+        order by task.operator_task_id desc
+
+        <!--<if test="taskSubtype!=null">AND task.task_subtype=#{taskSubtype}</if>
+        <if test="assignType!=null">AND task.assign_type=#{assignType}</if>
+        &lt;!&ndash;//1.已取消 (已取消、未审核) 2已派单 (未开始、未审核) 3进行中 (进行中、未审核) 4待审核 (任务结束、未审核) 5审核通过  (任务结束、审核通过) 6审核不通过 (任务结束、审核不通过)&ndash;&gt;
+
+
+        <if test="auditListFlag != null and auditListFlag==1">and task.process_status = 3</if>
+        <if test="auditStatus != null">and task.audit_status = #{auditStatus}</if>
+        <if test="attendanceDetailId!=null">
+            AND task.attendance_detail_id=#{attendanceDetailId}
+        </if>
+        <if test="companyId!=null">AND  ( task.company_id=#{companyId} or task.company_id = 0 )</if>
+        <if test="operateAreaId!=null">AND ( task.operare_area_id=#{operateAreaId} or task.operare_area_id = 0 )</if>
+        <if test="timeType!=null and timeType!=''">
+            <if test="timeType=='createTime'">
+                <if test="beginTime != null and beginTime!=''">
+                    and task.create_time &gt;=CONCAT(#{beginTime}, ' 00:00:00')
+                </if>
+                <if test="endTime != null and endTime!=''">
+                    and task.create_time &lt;=CONCAT(#{endTime}, ' 23:59:59')
+                </if>
+            </if>
+            <if test="timeType=='finishTime'">
+                <if test="beginTime != null and beginTime!=''">
+                    and task.finish_time &gt;=CONCAT(#{beginTime}, ' 00:00:00')
+                </if>
+                <if test="endTime != null and endTime!=''">
+                    and task.finish_time &lt;=CONCAT(#{endTime}, ' 23:59:59')
+                </if>
+            </if>
+            <if test="timeType=='auditTime'">
+                <if test="beginTime != null and beginTime!=''">
+                    and task.audit_time &gt;=CONCAT(#{beginTime}, ' 00:00:00')
+                </if>
+                <if test="endTime != null and endTime!=''">
+                    and task.audit_time &lt;=CONCAT(#{endTime}, ' 23:59:59')
+                </if>
+            </if>
+            <if test="timeType=='receiptTime'">
+                <if test="beginTime != null and beginTime!=''">
+                    and task.receipt_time &gt;=CONCAT(#{beginTime}, ' 00:00:00')
+                </if>
+                <if test="endTime != null and endTime!=''">
+                    and task.receipt_time &lt;=CONCAT(#{endTime}, ' 23:59:59')
+                </if>
+            </if>
+            <if test="timeType=='appearTime'">
+                <if test="beginTime != null and beginTime!=''">
+                    and task.task_type_appear_time &gt;=CONCAT(#{beginTime}, ' 00:00:00')
+                </if>
+                <if test="endTime != null and endTime!=''">
+                    and task.task_type_appear_time &lt;=CONCAT(#{endTime}, ' 23:59:59')
+                </if>
+            </if>
+        </if>
+        &lt;!&ndash;<if test="beginTime != null and beginTime!=''">and task.create_time &gt;=CONCAT(#{beginTime}, ' 00:00:00')</if>
+        <if test="endTime != null and endTime!=''">and task.create_time &lt;=CONCAT(#{endTime}, ' 23:59:59')</if>&ndash;&gt;
+        <if test="conditionType!=null and conditionType!='' and keyWords!=null and keyWords!=''">
+            <if test="conditionType=='plateNo'">
+                and task.plate_no=#{keyWords}
+            </if>
+            <if test="conditionType=='operateName'">
+                and us.operator_name=#{keyWords}
+            </if>
+            <if test="conditionType=='operateMobile'">
+                and us.mobile=#{keyWords}
+            </if>
+        </if>
+        <if test="companyId==null">
+            <if test="companyIdList != null">
+                and task.company_id in
+                <foreach collection="companyIdList" item="companyId" open="(" close=")" separator=",">
+                    #{companyId}
+                </foreach>
+            </if>
+        </if>
+    </where>-->
+
+        <!--<if test="pageNum != null and pageSize != null">
+            limit #{pageNum},#{pageSize}
+        </if>-->
+    </select>
+
+    <select id="getBikePowerIncome" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        interval_mil as intervalMil,
+        interval_amount as intervalAmount,
+        interval_order_num as intervalOrderNum,
+        pre_change_time as preChangeTime
+        FROM
+        bike_power_income
+        WHERE
+        cur_task_id = #{operatorTaskId} and income_type = #{incomeType}
     </select>
 </mapper>

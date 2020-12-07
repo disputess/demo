@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("shareOpStatService")
 public class ShareOpStatServiceImpl implements ShareOpStatService {
@@ -58,5 +59,28 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
     @DataSource(name = DataSourceNames.FOUTTH)
     public List<BatteryAccumulateEntity> getbatteryAccumulateEntityList(String batteryNo) {
         return shareOpStatDao.getbatteryAccumulateEntityList(batteryNo);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public BatteryEntity getLastBatteryAddress(String batteryNo) {
+        return shareOpStatDao.getLastBatteryAddress(batteryNo);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public List<BikeEntity> getBikeAddress() {
+        return shareOpStatDao.getBikeAddress();
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public List<OperatorTaskEntity> importListTask() {
+        return shareOpStatDao.importListTask();
+    }
+
+    @Override
+    public Map<String, Object> getBikePowerIncome(Map<String, Object> param) {
+        return shareOpStatDao.getBikePowerIncome(param);
     }
 }
