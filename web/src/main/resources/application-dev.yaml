@@ -6,25 +6,25 @@ spring:
      driverClassName: com.mysql.jdbc.Driver
      druid:
        first:
-         url: jdbc:mysql://81.70.205.10:3306/test1?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+         url: jdbc:mysql://81.70.205.10:3306/test1?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
          username: root
          password: 123456
        second:
-         url: jdbc:mysql://81.70.205.10:3306/test1?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+         url: jdbc:mysql://81.70.205.10:3306/test2?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
          username: root
          password: 123456
        third:
-         url: jdbc:mysql://81.70.205.10:3306/test1?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+         url: jdbc:mysql://81.70.205.10:3306/test3?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
          username: root
          password: 123456
        fourth:  #蜜步数据源从库
-         url: jdbc:mysql://81.70.205.10:3306/test1?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-         username: root
-         password: 123456
+         #url: jdbc:mysql://39.107.253.206:3306/test3?characterEncoding=utf8&useSLL=false&serverTimezone=UTC
+         #username: root
+         #password: rPCyKmOOQ1jpEG3h
          #宋爸爸专用数据源，闲杂人等不要乱动
-         #url: jdbc:mysql://10.1.11.188:3310/baojia_bike?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-         #username: readonly
-         #password: readonly
+         url: jdbc:mysql://10.1.11.14:3310/baojia_bike?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+         username: readonly
+         password: m965soD6tLdnF3MF
          #url: jdbc:mysql://10.1.11.110:3310/baojia_bike?useUnicode=true&characterEncoding=UTF-8&useSSL=false
          #username: baojia_xm
          #password: DgisNKhg
@@ -68,11 +68,8 @@ spring:
   redis:
     host: 81.70.205.10
     port: 6379
-    password: nmE9ZHEX7vqlRBBD
+    password: 123456
 #    database: 2
     timeout: 30s
-  #elasticsearch:
-    #rest:
-      #uris: http://81.70.205.10:9200
 logging:
   config: classpath:logback-dev.xml
