@@ -25,7 +25,7 @@
        from  share where share_id in (1,2,3,4,5,6,7,8,9,10)
     </select>
 
-    <!-- <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
+   <!-- <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
         select  id ,
         battery_no batteryNo,
         operator_id operatorId,
@@ -34,9 +34,10 @@
         operate_content operateContent,
         operate_type operateType,
         role
-        from battery_log where battery_no = #{batteryNo} order by id desc limit 1
+        from battery_log where battery_no = #{batteryNo} order by id desc
+        limit 1,1;
     </select>-->
-    <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
+  <select id="getLastBatteryLog" resultType="com.example.domain.entity.BatteryLogEntity">
         select  battery_id  batteryId,
         battery_no batteryNo
 
@@ -45,7 +46,7 @@
     </select>
     <select id="getBikeLocation" resultType="com.example.domain.entity.BikeEntity">
 
-        select plate_no plateNo,longitude,latitude from bike_state where plate_no = #{plateNo};
+        select plate_no plateNo,longitude,latitude,status_time as createTime,gps_time as updateTime from bike_state where plate_no = #{plateNo};
     </select>
     <select id="getbatteryAccumulateEntityList" resultType="com.example.domain.entity.BatteryAccumulateEntity">
        select bike_id bikeId,plate_no plateNo,battery_no batteryNo,last_orders_count lastOrdersCount,last_mileage lastMileage,total_amount totalAmount,total_order_amount totalOrderAmount, start_time startTime,end_time endTime ,create_time createTime
@@ -211,4 +212,90 @@
         WHERE
         cur_task_id = #{operatorTaskId} and income_type = #{incomeType}
     </select>
+
+    <select id="getOperatorTaskListNum"  resultType="com.example.domain.entity.OperatorTaskEntity">
+        SELECT
+        o'p
+        FROM
+        bike_power_income
+        WHERE
+        cur_task_id = #{operatorTaskId} and income_type = #{incomeType}
+    </select>
+    <select id="getBikeOpListOne" resultType="com.example.domain.entity.BikeOpStatEntity">
+     select
+     bike_id as bikeId,
+     plate_no as    plateNo,
+     operator_id as  operatorId,
+     operator_name as   operatorName,
+     operator_type as  operatorType,
+     operation_type as   operationType,
+     content
+     from  bike_op_stat where bike_id = #{bikeId} order by operation_time desc limit 1
+    </select>
+    <select id="selectBikeIdByPlateNo" resultType="java.lang.Long">
+        select bike_id as bikeId from  bike where plate_no = #{plateNo};
+    </select>
+    <select id="getLastDispatchTask" resultType="com.example.domain.entity.DispatchTaskEntity">
+        select a.plate_no as plateNo, a.finish_time as finishTime,b.operator_name as operatorName ,c.last_order_time as lastOrderTime ,d.status_time as kouYaTime
+        from operator_task a
+             left join bike c on a.plate_no =c.plate_no
+             left join bike_state d on a.plate_no =d.plate_no
+             left join operator_users b  on a.uid = b.operator_users_id
+        where
+        a.plate_no = #{plateNo}
+        and a.process_status =3 and a.task_type= 4  order by a.operator_task_id desc limit 1
+    </select>
+    <select id="getOperatorTaskListByUid" resultType="com.example.domain.entity.TaskUserEntity">
+      select operator_task_id as taskId,
+             task_subtype as taskSubType,
+             finish_time as finishTime,
+             finish_user_lat as finishUserLat,
+             finish_user_lng as finishUserLng,
+             plate_no as plateNo,
+             receipt_time as receiptTime,
+             audit_time as auditTime,
+             CASE
+                 WHEN audit_status = 0 THEN '未审核'
+                 WHEN audit_status = 1 THEN '审核通过'
+                 WHEN audit_status = 2 THEN '审核不通过'
+                 ELSE ''
+                 END as auditStatusStr,
+             CASE
+                 WHEN process_status = 3 THEN '已完成'
+                 WHEN process_status = 4 THEN '已取消'
+                 ELSE ''
+                 END as processStatusStr,
+             CASE
+                 WHEN assign_type = 1 THEN '抢单'
+                 WHEN assign_type = 2 THEN '派单'
+                 ELSE ''
+                 END as taskFrom
+
+
+
+      from operator_task
+      where uid = #{operatorUsersId}
+      and task_type =1
+      and process_status in(3,4)
+      and finish_time &gt;=#{startTime}
+      and finish_time &lt;=#{endTime}
+      order by finish_time asc
+    </select>
+
+    <select id="getUserList" resultType="com.example.domain.entity.OperatorUsersEntity">
+        select b.operator_users_id as operatorUsersId ,
+        b.operator_name as operatorName ,
+        b.mobile as mobile ,
+        c.operate_city_name as adName
+        from operator_task a,operator_users b,operate_city c where a.uid = b.operator_users_id and b.ad_code =c.ad_code
+        and a.task_type =1
+        and a.process_status in(3,4)
+        and a.finish_time &gt;=#{startTime}
+        and a.finish_time &lt;=#{endTime}
+        <!--and a.ad_code = '450100'-->
+        group by a.uid
+        order by b.ad_code
+
+    </select>
+
 </mapper>

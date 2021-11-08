@@ -7,9 +7,10 @@ package com.example.domain.entity;
  * @date 2020/3/1811:13
  */
 
+
 import lombok.Data;
 
-import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *@ClassName Users
@@ -19,16 +20,9 @@ import java.io.Serializable;
  *@Version 1.0
  **/
 @Data
-public class UsersEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class UsersEntity {
     private Integer id;
     private String name;
+    private Integer age;
 
-    @Override
-    public String toString() {
-        return "UsersEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

@@ -22,5 +22,10 @@
         values (#{phone,jdbcType=VARCHAR}, #{backOne,jdbcType=VARCHAR}, #{backTwo,jdbcType=VARCHAR},
         #{backThree,jdbcType=VARCHAR},#{shareId,jdbcType=INTEGER})
     </insert>
-
+    <select id="getListCount" resultType="java.lang.Long" parameterType="com.example.domain.entity.BatteryEntity">
+        SELECT count(1) from battery where battery_status = #{batteryStatus};
+    </select>
+    <select id="getThreadList" resultType="com.example.domain.entity.BatteryEntity">
+        select * from battery where battery_status = #{batteryStatus}  limit #{pageNum},#{pageSize};
+    </select>
 </mapper>

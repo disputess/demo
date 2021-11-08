@@ -77,7 +77,7 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
     }
     @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource fourthDataSource, DataSource shardingDataSource,DataSource shardingDataSourceTable) {
+    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource fourthDataSource, DataSource shardingDataSource,DataSource shardingDataSourceTable,DataSource shardingBikeDataSource) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
         targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
@@ -85,6 +85,7 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         targetDataSources.put(DataSourceNames.FOUTTH, fourthDataSource);
         targetDataSources.put(DataSourceNames.SHARDING, shardingDataSource);
         targetDataSources.put(DataSourceNames.SHARDINGTABLE, shardingDataSourceTable);
+        targetDataSources.put(DataSourceNames.SHARDBIKEING, shardingBikeDataSource);
         List<DataSource> dsList= ImmutableList.of(firstDataSource,secondDataSource);
         scheduledExecutorService.scheduleAtFixedRate(()->{
             for(DataSource ds:dsList){
@@ -222,6 +223,26 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         return result;
     }
 */
+    @Bean("shardingBikeDataSource")
+    public DataSource shardingBikeDataSource() throws SQLException {
+        ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
+        TableRuleConfiguration tableRule = new TableRuleConfiguration();
+        tableRule.setLogicTable("bike_op_stat");
+        tableRule.setActualDataNodes("ds.bike_op_stat_$->{0..9}");
+        tableRule.setKeyGeneratorColumnName("id");
+        long workId = getWorkIdByHostIp();
+        logger.error("KeyGenerator workId:{}", workId);
+        DefaultKeyGenerator.setWorkerId(workId);
 
+        tableRule.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("bike_id", new BikeOpStatTableShardingAlgorithm(), null));
+        shardingRuleConfig.getTableRuleConfigs().add(tableRule);
+
+        DataSource fourthDataSource = (DataSource) applicationContext.getBean("fourthDataSource");
+        Map<String, DataSource> dataSourceMap = new HashMap<>();
+        dataSourceMap.put("ds", fourthDataSource);
+        Properties props = new Properties();
+//        props.put("sql.show", true);
+        return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new HashMap<String, Object>(), props);
+    }
 
 }

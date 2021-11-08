@@ -27,12 +27,22 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.20.0-GA</version>
+            <version>3.21.0-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>demo</finalName>
+        <finalName>bike-operation</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -40,7 +50,7 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
@@ -49,14 +59,14 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <!-- 过滤后缀为pem、pfx的证书文件 -->
+                    &lt;!&ndash; 过滤后缀为pem、pfx的证书文件 &ndash;&gt;
                     <nonFilteredFileExtensions>
                         <nonFilteredFileExtension>pem</nonFilteredFileExtension>
                         <nonFilteredFileExtension>pfx</nonFilteredFileExtension>
                         <nonFilteredFileExtension>p12</nonFilteredFileExtension>
                     </nonFilteredFileExtensions>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 

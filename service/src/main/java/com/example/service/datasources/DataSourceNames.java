@@ -16,5 +16,6 @@ public interface DataSourceNames {
     String FOUTTH = "fourth";
     String SHARDING = "shardingDataSource";
     String SHARDINGTABLE = "shardingDataSourceTable";
+    String SHARDBIKEING = "shardingBikeDataSource";
 
 }

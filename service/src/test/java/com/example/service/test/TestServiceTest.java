@@ -13,18 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 import java.util.List;
-@RunWith(SpringRunner.class)
-@SpringBootTest()
-@Slf4j
+
 class TestServiceTest {
 
     @Autowired
     private TestService testService;
 
-    @Test
-    void getAll() {
-        List<TestEntity> all = testService.getAll();
-        log.info("name:{}",all.get(0).getName());
-        //Assert.assertSame("查询失败",500,testService.getAll());
-    }
 }

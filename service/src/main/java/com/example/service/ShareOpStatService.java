@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.domain.entity.*;
 import com.example.service.datasources.DataSourceNames;
 import com.example.service.datasources.annotation.DataSource;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +36,16 @@ public interface ShareOpStatService {
     List<OperatorTaskEntity> importListTask();
     @DataSource(name = DataSourceNames.FOUTTH)
     Map<String,Object> getBikePowerIncome(Map<String, Object> param);
+    @DataSource(name = DataSourceNames.FOUTTH)
+    List<OperatorTaskEntity> getOperatorTaskListNum();
+    @DataSource(name = DataSourceNames.SHARDBIKEING)
+    BikeOpStatEntity getBikeOpListOne(Long bikeId);
+    @DataSource(name = DataSourceNames.FOUTTH)
+    Long selectBikeIdByPlateNo(String plateNo);
+    @DataSource(name = DataSourceNames.FOUTTH)
+    DispatchTaskEntity getLastDispatchTask(String plateNo);
+    @DataSource(name = DataSourceNames.FOUTTH)
+    List<TaskUserEntity> getOperatorTaskListByUid(Long operatorUsersId, String startTime, String endTime);
+    @DataSource(name = DataSourceNames.FOUTTH)
+    List<OperatorUsersEntity> getUserList(String startTime, String endTime);
 }

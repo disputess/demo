@@ -5,9 +5,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 电池表
@@ -17,13 +14,10 @@ import java.util.List;
  * @date 2018-06-16 17:36:48
  */
 @Data
-public class OperatorTaskEntity implements Serializable {
-	@ExcelProperty(value = "任务ID" ,index = 0)
-	private String taskId;
-	@ExcelProperty(value = "车牌号" ,index = 1)
-	String plateNo;
-	@ExcelProperty(value = "用户id" ,index = 2)
-	private String userId;
+public class TaskEntity implements Serializable {
+
+	private Long taskId;
+	private Long userId;
 	@ExcelProperty(value = "姓名" ,index = 3)
 	private String name;
 	@ExcelProperty(value = "接单时电量" ,index = 4)

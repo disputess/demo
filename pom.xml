@@ -54,6 +54,8 @@
             <artifactId>spring-web</artifactId>
             <version>5.0.5.RELEASE</version>
         </dependency>-->
+        <!--Spring Test-->
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -136,6 +138,31 @@
             <artifactId>taobao-sdk-java-auto</artifactId>
             <version>1582787941264-20200714</version>
         </dependency>-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>7.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.10.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -177,10 +204,11 @@
     </distributionManagement>-->
     <build>
         <plugins>
+
             <!-- 要将源码放上去，需要加入这个插件 -->
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.1</version>
+                <version>4.</version>
                 <configuration>
                     <attach>true</attach>
                 </configuration>
@@ -192,7 +220,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 

@@ -37,6 +37,6 @@ public class BikeEntity implements Serializable {
 	@ExcelProperty(value = "时间" ,index = 4)
 	private Date createTime;
 	@ExcelProperty(value = "时间2" ,index = 5)
-	private String updateTime;
+	private Date updateTime;
 
 }

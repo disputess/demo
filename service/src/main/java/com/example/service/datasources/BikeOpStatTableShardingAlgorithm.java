@@ -6,6 +6,14 @@ import io.shardingsphere.api.algorithm.sharding.standard.PreciseShardingAlgorith
 import java.util.Collection;
 
 public class BikeOpStatTableShardingAlgorithm implements PreciseShardingAlgorithm<Long> {
+    @Override
+    public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
+        for (String tableName : availableTargetNames)
+            if (tableName.endsWith(shardingValue.getValue() % 10 + ""))
+                return tableName;
+
+        throw new UnsupportedOperationException();
+    }
 
     /*@Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
@@ -23,7 +31,7 @@ public class BikeOpStatTableShardingAlgorithm implements PreciseShardingAlgorith
      * @author songchaojie
      * @Date: 2020年03月18日
      **/
-    @Override
+    /*@Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
         for (String tableName : availableTargetNames){
             if (tableName.endsWith(shardingValue.getValue() % 2+ "")){
@@ -31,6 +39,6 @@ public class BikeOpStatTableShardingAlgorithm implements PreciseShardingAlgorith
             }
         }
         throw new UnsupportedOperationException();
-    }
+    }*/
 
 }

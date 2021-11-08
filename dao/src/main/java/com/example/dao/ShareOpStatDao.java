@@ -28,4 +28,16 @@ public interface ShareOpStatDao {
     List<OperatorTaskEntity> importListTask();
 
     Map<String,Object> getBikePowerIncome(Map<String, Object> param);
+
+    List<OperatorTaskEntity> getOperatorTaskListNum();
+
+    BikeOpStatEntity getBikeOpListOne(@Param("bikeId")Long bikeId);
+
+    Long selectBikeIdByPlateNo(@Param("plateNo")String plateNo);
+
+    DispatchTaskEntity getLastDispatchTask(@Param("plateNo")String plateNo);
+
+    List<TaskUserEntity> getOperatorTaskListByUid(@Param("operatorUsersId")Long operatorUsersId, @Param("startTime")String startTime, @Param("endTime")String endTime);
+
+    List<OperatorUsersEntity> getUserList(@Param("startTime")String startTime, @Param("endTime")String endTime);
 }

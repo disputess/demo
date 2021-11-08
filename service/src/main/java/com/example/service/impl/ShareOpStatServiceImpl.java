@@ -6,6 +6,7 @@ import com.example.domain.entity.*;
 import com.example.service.ShareOpStatService;
 import com.example.service.datasources.DataSourceNames;
 import com.example.service.datasources.annotation.DataSource;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +84,41 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
     @Override
     public Map<String, Object> getBikePowerIncome(Map<String, Object> param) {
         return shareOpStatDao.getBikePowerIncome(param);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public List<OperatorTaskEntity> getOperatorTaskListNum() {
+        return shareOpStatDao.getOperatorTaskListNum();
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.SHARDBIKEING)
+    public BikeOpStatEntity getBikeOpListOne(Long bikeId) {
+        return shareOpStatDao.getBikeOpListOne(bikeId);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public Long selectBikeIdByPlateNo(String plateNo) {
+        return shareOpStatDao.selectBikeIdByPlateNo(plateNo);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public DispatchTaskEntity getLastDispatchTask(String plateNo) {
+        return shareOpStatDao.getLastDispatchTask(plateNo);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public List<TaskUserEntity> getOperatorTaskListByUid(Long operatorUsersId, String startTime, String endTime) {
+        return shareOpStatDao.getOperatorTaskListByUid(operatorUsersId,startTime,endTime);
+    }
+
+    @Override
+    @DataSource(name = DataSourceNames.FOUTTH)
+    public List<OperatorUsersEntity> getUserList(String startTime, String endTime) {
+        return shareOpStatDao.getUserList(startTime,endTime);
     }
 }

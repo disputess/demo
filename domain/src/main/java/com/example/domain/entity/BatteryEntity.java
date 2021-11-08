@@ -14,7 +14,7 @@ import java.util.Date;
  * @date 2018-06-16 17:36:48
  */
 @Data
-public class BatteryEntity implements Serializable {
+public class BatteryEntity extends BaseDto {
 
 	/**
 	 * 电池编号

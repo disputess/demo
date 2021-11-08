@@ -1,10 +1,8 @@
 package com.example.dao;
 
-import com.example.domain.entity.ShareDatasourcesTableEntity;
-import com.example.domain.entity.TableOne;
-import com.example.domain.entity.TestEntity;
-import com.example.domain.entity.UsersEntity;
+import com.example.domain.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +16,8 @@ public interface TestDao {
     void insert(TableOne tableOne);
 
     void insertShareDataSourcesTable(ShareDatasourcesTableEntity tableOne);
+
+    Long getListCount(@Param("batteryEntity") BatteryEntity batteryEntity);
+
+    List<BatteryEntity> getThreadList(BatteryEntity batteryEntity, @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 }

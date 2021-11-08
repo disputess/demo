@@ -85,4 +85,20 @@ public class TestServiceImpl implements TestService {
             testDao.insertShareDataSourcesTable(tableOne);
         }
     }
+
+    @Override
+    public Long getListCount(BatteryEntity batteryEntity) {
+        Long count = testDao.getListCount(batteryEntity);
+        return count;
+    }
+
+    @Override
+    public List<BatteryEntity> getThreadList(BatteryEntity batteryEntity, Integer pageNum, Integer pageSize) {
+        List<BatteryEntity> list = testDao.getThreadList(batteryEntity,pageNum,pageSize);
+        return list;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(373.96+243.99);
+    }
 }
