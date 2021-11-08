@@ -20,8 +20,16 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
 
     @Override
     @DataSource(name = DataSourceNames.SHARDING)
-    public <T> void insertShareOpStat(ShareOpStatEntity shareOpStatEntity) {
-        shareOpStatDao.insertShareOpStat(shareOpStatEntity);
+    public <T> void insertShareOpStat() {
+        for (long i = 1 ; i < 10 ; i++){
+            ShareOpStatEntity tableOne = new ShareOpStatEntity() ;
+            tableOne.setPhone("phone"+i);
+            tableOne.setBackOne("back_one"+i);
+            tableOne.setBackTwo("back_two"+i);
+            tableOne.setBackThree("back_three"+i);
+            tableOne.setShareId(i);
+            shareOpStatDao.insertShareOpStat(tableOne);
+        }
     }
 
 
@@ -37,6 +45,7 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
             tableOne.setShareId(i);
             shareOpStatDao.insertShareDataSourcesTable(tableOne);
         }
+
     }
 
     @Override
@@ -93,7 +102,7 @@ public class ShareOpStatServiceImpl implements ShareOpStatService {
     }
 
     @Override
-    @DataSource(name = DataSourceNames.SHARDBIKEING)
+    //@DataSource(name = DataSourceNames.SHARDBIKEING)
     public BikeOpStatEntity getBikeOpListOne(Long bikeId) {
         return shareOpStatDao.getBikeOpListOne(bikeId);
     }

@@ -5,7 +5,10 @@
 
 
     <insert id="insertShareOpStat" parameterType="com.example.domain.entity.ShareOpStatEntity">
-      INSERT INTO share_op_stat (name,share_id)VALUES (#{name},#{shareId});
+      insert into share_op_stat (phone, back_one, back_two,
+                                 back_three,share_id)
+      values (#{phone,jdbcType=VARCHAR}, #{backOne,jdbcType=VARCHAR}, #{backTwo,jdbcType=VARCHAR},
+              #{backThree,jdbcType=VARCHAR},#{shareId})
     </insert>
 
 

@@ -42,7 +42,7 @@
     </dependencies>
 
     <build>
-        <finalName>bike-operation</finalName>
+        <finalName>demo</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

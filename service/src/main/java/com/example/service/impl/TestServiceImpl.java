@@ -51,15 +51,30 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void test(ShareOpStatEntity shareOpStatEntity) {
-        System.out.println("shareOpStatEntity = [" + shareOpStatEntity.toString() + "]");
-        shareOpStatService.insertShareOpStat(shareOpStatEntity);
+
     }
+
 
     @Override
     public void createTable() {
-        for (int i = 5 ; i <= 9 ; i++){
+        /*for (int i = 0 ; i <= 1 ; i++){
             String executeSQL = "CREATE TABLE share_"+i+" (\n" +
-                    "  `id` int(11) NOT NULL  COMMENT '主键ID',\n" +
+                    "  `id` bigint(20) NOT NULL  COMMENT '主键ID',\n" +
+                    "  `phone` varchar(20) NOT NULL COMMENT '手机号',\n" +
+                    "  `back_one` varchar(50) DEFAULT NULL COMMENT '备用1',\n" +
+                    "  `back_two` varchar(50) DEFAULT NULL COMMENT '备用2',\n" +
+                    "  `back_three` varchar(50) DEFAULT NULL COMMENT '备用3',\n" +
+                    "  `share_id` int(50) DEFAULT NULL COMMENT '分表id',\n" +
+                    "  PRIMARY KEY (`id`),\n" +
+                    "  KEY `phoneIndex` (`phone`)\n" +
+                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8;" ;
+            secondDataSourceTemplate.execute(executeSQL);
+            thirdDataSourceTemplate.execute(executeSQL);
+        }*/
+
+        for (int i = 0 ; i <= 1 ; i++){
+            String executeSQL = "CREATE TABLE share_op_stat_"+i+" (\n" +
+                    "  `id` bigint(20) NOT NULL  COMMENT '主键ID',\n" +
                     "  `phone` varchar(20) NOT NULL COMMENT '手机号',\n" +
                     "  `back_one` varchar(50) DEFAULT NULL COMMENT '备用1',\n" +
                     "  `back_two` varchar(50) DEFAULT NULL COMMENT '备用2',\n" +
@@ -69,7 +84,7 @@ public class TestServiceImpl implements TestService {
                     "  KEY `phoneIndex` (`phone`)\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8;" ;
             //secondDataSourceTemplate.execute(executeSQL);
-            thirdDataSourceTemplate.execute(executeSQL);
+            firstDataSourceTemplate.execute(executeSQL);
         }
     }
 

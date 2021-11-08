@@ -27,10 +27,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/es")
 public class UserElasticSearchRepositoryController {
-    @Autowired
+   /* @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
-    /* @Autowired
-     private ElasticsearchTemplate elasticsearchTemplate;*/
+    *//* @Autowired
+     private ElasticsearchTemplate elasticsearchTemplate;*//*
     //@Autowired
    // private UserElasticSearchRepository userElasticSearchRepository;
 
@@ -44,7 +44,7 @@ public class UserElasticSearchRepositoryController {
         //boolean exists = elasticsearchRestTemplate.indexExists("user1");
         //System.out.println(exists);
         // 删除索引
-        /*elasticsearchRestTemplate.deleteIndex("user1");
+        *//*elasticsearchRestTemplate.deleteIndex("user1");
         //elasticsearchRestTemplate.createM
         NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
@@ -106,6 +106,6 @@ public class UserElasticSearchRepositoryController {
                 System.out.println("hi"+String.valueOf(hit.getHighlightFields().get("userName").fragments()[0]));
             }
         }
+    }*//*
     }*/
-    }
 }

@@ -9,7 +9,7 @@ public class BikeOpStatTableShardingAlgorithm implements PreciseShardingAlgorith
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
         for (String tableName : availableTargetNames)
-            if (tableName.endsWith(shardingValue.getValue() % 10 + ""))
+            if (tableName.endsWith(shardingValue.getValue() % 2 + ""))
                 return tableName;
 
         throw new UnsupportedOperationException();

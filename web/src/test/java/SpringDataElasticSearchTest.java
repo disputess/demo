@@ -1,22 +1,22 @@
-import com.example.domain.entity.User;
-import com.example.service.UserElasticSearchRepository;
+//import com.example.domain.entity.User;
+//import com.example.service.UserElasticSearchRepository;
 import com.example.web.App;
-import org.junit.Test;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+//import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+//import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = App.class)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = App.class)
 public class SpringDataElasticSearchTest {
-    @Resource
+    /*@Resource
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
-   /* @Autowired
-    private ElasticsearchTemplate elasticsearchTemplate;*/
+   *//* @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;*//*
     @Autowired
     private UserElasticSearchRepository userElasticSearchRepository;
    // @Test
@@ -36,5 +36,5 @@ public class SpringDataElasticSearchTest {
     public void testRepository(){
         Iterable<User> all = userElasticSearchRepository.findAll();
     all.forEach(System.out::println);
-    }
+    }*/
 }

@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EsClientTest {
-    // 服务器地址
+    /*// 服务器地址
     private final String HOSTNAME="81.70.205.10";
     // 连接方式
     private final String SCHEME="http";
@@ -39,11 +39,11 @@ public class EsClientTest {
     private RestHighLevelClient client =null;
     // 节点信息(服务器地址,端口，连接方式)
     // 集群方式
-    /*private HttpHost[] httpHosts = new HttpHost[] {
+    *//*private HttpHost[] httpHosts = new HttpHost[] {
         new HttpHost(HOSTNAME,9200,SCHEME),
         new HttpHost(HOSTNAME,9201,SCHEME),
         new HttpHost(HOSTNAME,9202,SCHEME)
-    };*/
+    };*//*
     // 单节点方式
     private HttpHost httpHosts = new HttpHost(HOSTNAME,9200,SCHEME);
    // 初始化客户端
@@ -208,5 +208,5 @@ public class EsClientTest {
             }
         }
         //System.out.println(response);
-    }
+    }*/
 }

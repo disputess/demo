@@ -77,7 +77,7 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
     }
     @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource fourthDataSource, DataSource shardingDataSource,DataSource shardingDataSourceTable,DataSource shardingBikeDataSource) {
+    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource,DataSource thirdDataSource, DataSource fourthDataSource, DataSource shardingDataSource,DataSource shardingDataSourceTable) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
         targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
@@ -85,7 +85,7 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         targetDataSources.put(DataSourceNames.FOUTTH, fourthDataSource);
         targetDataSources.put(DataSourceNames.SHARDING, shardingDataSource);
         targetDataSources.put(DataSourceNames.SHARDINGTABLE, shardingDataSourceTable);
-        targetDataSources.put(DataSourceNames.SHARDBIKEING, shardingBikeDataSource);
+        //targetDataSources.put(DataSourceNames.SHARDBIKEING, shardingBikeDataSource);
         List<DataSource> dsList= ImmutableList.of(firstDataSource,secondDataSource);
         scheduledExecutorService.scheduleAtFixedRate(()->{
             for(DataSource ds:dsList){
@@ -223,7 +223,7 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         return result;
     }
 */
-    @Bean("shardingBikeDataSource")
+    /*@Bean("shardingBikeDataSource")
     public DataSource shardingBikeDataSource() throws SQLException {
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
         TableRuleConfiguration tableRule = new TableRuleConfiguration();
@@ -243,6 +243,6 @@ public class DynamicDataSourceConfig implements ApplicationContextAware {
         Properties props = new Properties();
 //        props.put("sql.show", true);
         return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new HashMap<String, Object>(), props);
-    }
+    }*/
 
 }

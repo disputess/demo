@@ -49,11 +49,7 @@ public class ShareOpStatController {
 
     @RequestMapping(value = "/share/table")
     public void shareTable() {
-        ShareOpStatEntity shareOpStatEntity = new ShareOpStatEntity();
-        shareOpStatEntity.setShareId(55L);
-        shareOpStatEntity.setName("徐辣鸡");
-        shareOpStatService.insertShareOpStat(shareOpStatEntity);
-
+        shareOpStatService.insertShareOpStat();
         logger.info("分表成功");
     }
 

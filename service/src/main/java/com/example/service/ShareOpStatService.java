@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public interface ShareOpStatService {
     @DataSource(name = DataSourceNames.SHARDING)
-    <T> void insertShareOpStat(ShareOpStatEntity shareOpStatEntity);
+    <T> void insertShareOpStat();
     @DataSource(name = DataSourceNames.SHARDINGTABLE)
     void insertList();
     @DataSource(name = DataSourceNames.SHARDINGTABLE)
@@ -38,7 +38,7 @@ public interface ShareOpStatService {
     Map<String,Object> getBikePowerIncome(Map<String, Object> param);
     @DataSource(name = DataSourceNames.FOUTTH)
     List<OperatorTaskEntity> getOperatorTaskListNum();
-    @DataSource(name = DataSourceNames.SHARDBIKEING)
+    //@DataSource(name = DataSourceNames.SHARDBIKEING)
     BikeOpStatEntity getBikeOpListOne(Long bikeId);
     @DataSource(name = DataSourceNames.FOUTTH)
     Long selectBikeIdByPlateNo(String plateNo);

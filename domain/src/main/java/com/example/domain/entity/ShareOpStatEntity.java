@@ -21,16 +21,15 @@ import java.io.Serializable;
 @Data
 public class ShareOpStatEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Long uid;
-    private String name;
+    private Long id;
+
+    private String phone;
+
+    private String backOne;
+
+    private String backTwo;
+
+    private String backThree;
     private Long shareId;
 
-    @Override
-    public String toString() {
-        return "ShareOpStatEntity{" +
-                "uid=" + uid +
-                ", name='" + name + '\'' +
-                ", shareId=" + shareId +
-                '}';
-    }
 }
