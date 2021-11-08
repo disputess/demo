@@ -53,8 +53,10 @@ public class TestController {
     @SysOperatorLog
     @RequestMapping(value = "/getAll")
     public String getAll(Long testId, String testName) {
-        List<TestEntity> list = new ArrayList<>();
-        return list.get(0).toString();
+
+       String  str ="宋爸爸和他的三个狗儿子们！";
+
+        return str.toString();
     }
 
     @RequestMapping(value = "/change/datasource")

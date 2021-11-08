@@ -66,12 +66,13 @@ public class ShareOpStatController {
     }
 
     @RequestMapping(value = "/select/list")
-    public void selectList() {
+    public String selectList() {
         List<ShareDatasourcesTableEntity> list = shareOpStatService.selectList();
         for (ShareDatasourcesTableEntity shareDatasourcesTableEntity : list) {
             System.out.println(shareDatasourcesTableEntity.toString());
         }
         logger.info("分库分表查询成功");
+        return  list.toString();
     }
 
     @RequestMapping(value = "/export/bike/log")
