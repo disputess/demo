@@ -8,7 +8,7 @@
     <!--sql日志-->
     <appender name="APP_SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--活动日志输出路径示例-->
-        <file>/opt/log/operation/sql.log</file>
+        <file>/opt/log/demo/sql.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
@@ -17,7 +17,7 @@
         </filter>
         <!--存档日志示例-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/opt/log/operation/%d{yyyy-MM-dd}/sql.%i.log
+            <fileNamePattern>/opt/log/demo/%d{yyyy-MM-dd}/sql.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!--日志大小可自定义-->
@@ -33,7 +33,7 @@
     </appender>
     <appender name="SLOW_SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--活动日志输出路径示例-->
-        <file>/opt/log/operation/slow.log</file>
+        <file>/opt/log/demo/slow.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
@@ -42,7 +42,7 @@
         </filter>
         <!--存档日志示例-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/opt/log/operation/%d{yyyy-MM-dd}/slow.%i.log
+            <fileNamePattern>/opt/log/demo/%d{yyyy-MM-dd}/slow.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!--日志大小可自定义-->
@@ -59,7 +59,7 @@
     <!--info日志-->
     <appender name="APP_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--活动日志输出路径示例-->
-        <file>/opt/log/operation/info.log</file>
+        <file>/opt/log/demo/info.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -68,7 +68,7 @@
         </filter>
         <!--存档日志示例-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/opt/log/operation/%d{yyyy-MM-dd}/info.%i.log
+            <fileNamePattern>/opt/log/demo/%d{yyyy-MM-dd}/info.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!--日志大小可自定义-->
@@ -84,7 +84,7 @@
     </appender>
     <!--ERROR日志-->
     <appender name="APP_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/opt/log/operation/error.log</file>
+        <file>/opt/log/demo/error.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
@@ -92,7 +92,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/opt/log/operation/%d{yyyy-MM-dd}/error.%i.log
+            <fileNamePattern>/opt/log/demo/%d{yyyy-MM-dd}/error.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -106,7 +106,7 @@
     </appender>
     <!--数据库连接日志-->
     <appender name="DB_CONN" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/opt/log/operation/conn.log</file>
+        <file>/opt/log/demo/conn.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>TRACE</level>
@@ -114,7 +114,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/opt/log/operation/%d{yyyy-MM-dd}/conn.%i.log
+            <fileNamePattern>/opt/log/demo/%d{yyyy-MM-dd}/conn.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
